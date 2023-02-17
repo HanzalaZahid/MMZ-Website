@@ -25,6 +25,7 @@
 
 </head>
 <body>
+    <?php include "./includes/header_nav.php";?>
     <div class="body">
         <div class="main_container">
             <div class="card">

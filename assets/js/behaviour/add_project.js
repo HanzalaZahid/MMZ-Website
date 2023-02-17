@@ -15,5 +15,8 @@ $(document).ready(
                 counter++;
             }
         )
+
+
+        //CITIES LIST HERE
     }
 )
