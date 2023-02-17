@@ -1,0 +1,323 @@
+@import "./variables";
+.main_container
+{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 22px;
+    row-gap: 22px;
+    grid-template-areas: "earning_and_expenses earning_and_expenses pending_payments"
+    "project_table project_table pending_payments"
+    "project_table project_table upcomming_projects"
+    "project_table project_table upcomming_projects";
+}
+.card
+{
+    .head
+    {
+        .container
+        {
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+    
+    .icon_container
+    {
+        .card_icon
+        {
+            background-color: $blue_light_color;
+            i
+            {
+                color: $blue_color;
+            }
+        }
+    }
+}
+
+.icon_container
+{
+    display: flex;
+    .label
+    {
+        color: $grey_text_color;
+        font-size: 15px;
+    }
+    .amount
+    {
+        font-size: 32px;
+        font-weight: 500;
+        padding: 4px 0px;
+    }
+    .compare
+    {
+        font-size: 12px;
+        display: flex;
+        align-items: center;
+        .positive
+        {
+            color: $green_color;
+            font-weight: 500;
+            i
+            {
+                font-weight: bold;
+                color: $green_color;
+                font-size: 12px;
+                line-height: 1;
+            }
+        }
+        .negative
+        {
+            color: $secondary_red_color;
+            font-weight: 500;
+            i
+            {
+                font-weight: bold;
+                color: $secondary_red_color;
+                font-size: 12px;
+                line-height: 1;
+            }
+        }
+        span
+        {
+            margin-right: 4px;
+        }
+    }
+    .card_icon
+    {
+        font-size: 28px;
+        // padding: 8px;
+        // background-color: red;
+        display: flex;
+        width: 56px;
+        height: 56px;
+        justify-content: center;
+        align-items: center;
+        border-radius: 8px;
+        
+    }
+}
+
+.earning_and_expenses
+{
+    grid-area: earning_and_expenses;
+    display: grid;
+    grid-template-columns: 4fr 5fr;
+    .head
+    {
+        select
+        {
+            // appearance: none;
+            background-color: none;
+            border: none;
+            min-width: unset;
+            padding: 0;
+            font-weight: 600;
+            box-shadow: none;
+        }
+    }
+    
+    .earning
+    {
+        .card_icon
+        {
+            background-color: $green_light_color;
+            i
+            {
+                color: $green_color;
+            }
+        }
+    }
+    .expenses
+    {
+        padding-left: 22px;
+        border-left: 1px solid $light_border_color;
+        .card_icon
+        {
+            background-color: $secondary_red_light_color;
+            i
+            {
+                color: $secondary_red_color;
+            }
+        }
+    }
+}
+.pending_payments
+{
+    grid-area: pending_payments;
+}
+.project_table
+{
+    grid-area: project_table;
+    .head
+    {
+        .title
+        {
+            padding-bottom: 18px;
+        }
+        .bottom
+        {
+            .container
+            {
+                align-items: center;
+                button
+                {
+                    margin-left: 8px;
+                    i
+                    {
+                        // margin-right: 8px;
+                        margin-left: 8px;
+                    }
+                }
+                .right
+                {
+                    display: flex;
+                }
+            }
+        }
+    }
+    .wrapper
+    {
+        .dataTables_length
+        {
+            display: none;
+        }
+        .dataTables_filter
+        {
+            position: absolute;
+            right: 230px;
+            top: -82px;
+        }
+        table
+        {
+            width: 100%;
+            border-collapse: collapse;
+            th,td
+            {
+                text-align: left;
+                vertical-align: middle;
+                padding: 14px 0px;
+                padding-right: 10px;
+                &:first-child
+                {
+                    padding-left: 10px;
+                }
+            }
+            td
+            {
+                font-weight: 500;
+                font-size: 14px;
+            }
+            th:last-child, td:last-child
+            {
+                text-align: center;
+                padding-right: 0px;
+            }
+            a
+            {
+                padding: 3px 14px;
+            }
+            tbody
+            {
+                tr:first-child
+                {
+                    td
+                    {
+                        padding-top: 18px;
+                    }
+                }
+                tr:nth-child(even)
+                {
+                    background-color: $grey_color;
+                }
+            }
+            thead
+            {
+                th
+                {
+                    padding: 10px 0px;
+                    border-top: 1px solid $grey_text_color;
+                    border-bottom: 1px solid $grey_text_color;
+                }
+            }
+        }
+    }
+}
+.upcomming_projects
+{
+    grid-area: upcomming_projects;
+    table
+    {
+        tr
+        {
+            td
+            {
+                
+                &:first-child
+                {
+                    width: 55%;
+                }
+            }
+        }
+    }
+}
+
+.upcomming_projects, .pending_payments
+{
+    min-height: 350px;
+    // max-height: 400px;
+    .wrapper
+    {
+        padding-top: 12px;
+    }
+    table
+    {
+        width: 100%;
+        vertical-align: bottom;
+        border-collapse: collapse;
+        a
+        {
+            padding: 3px 14px;
+        }
+        tr
+        {
+            vertical-align: bottom;
+            background-color: $grey_color;
+            display: flex;
+            width: 100%;
+        }
+        td
+        {
+            text-align: left;
+            padding: 10px 0px;
+            border-bottom: 16px solid white;
+            display: flex;
+            align-items: center;
+            &:first-child
+            {
+                width: 50%;
+                font-weight: 500;
+                font-size: 15px;
+                padding-left: 10px;
+                border-top-left-radius: 4px;
+                border-bottom-left-radius: 4px;
+            }
+            &:nth-child(2)
+            {
+                font-size: 15px;
+                color: $secondary_red_color;
+                font-weight: 600;
+                padding-right: 32px;
+            }
+            &:last-child
+            {
+                text-align: right;
+                padding-right: 10px;
+                border-top-right-radius: 4px;
+                border-bottom-right-radius: 4px;
+                font-size: 15px;
+                font-weight: 500;
+                flex-grow: 1;
+            }
+        }
+    }
+}

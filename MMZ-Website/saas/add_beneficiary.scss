@@ -1,0 +1,17 @@
+@import "./variables";
+
+input[type=checkbox]
+{
+    width: 32px !important;
+    cursor: pointer;
+}
+
+.form_group
+{
+    p
+    {
+        display: flex;
+        align-items: center;
+        color: $red_color;
+    }
+}

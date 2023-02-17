@@ -1,0 +1,135 @@
+@import "./variables";
+
+.transaction_type_form
+{
+    button
+    {
+        width: 160px;
+        margin-right: 12px;
+        margin-bottom: 12px;
+    }
+    .label
+    {
+        margin-top: 10px;
+    } 
+    ul
+    {
+        list-style-type: none;
+    }
+    .checked
+    {
+        color: white!important;
+        background-color: $red_color!important;
+        border: 1px solid $red_color!important;
+        i
+        {
+            color: white!important;
+        }
+    }
+    .row_flex
+    {
+        flex-wrap: wrap;
+    }
+}
+input[type=radio]
+{
+    appearance: none;
+    display: none!important;
+    &:checked + label
+    {
+        background-color: $red_color;
+        *
+        {
+            color: white;
+        }
+    }
+}
+form
+{
+    padding-bottom: 12px;
+    label.radio_button
+    {
+        height: 58px;
+        width: 72px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid $red_color;
+        color: $red_color;
+        flex-direction: column;
+        font-size: 11px;
+        cursor: pointer;
+        border-radius: 6px;
+        margin-right: 22px;
+        *
+        {
+            color: $red_color;
+            font-weight: 600;
+        }
+        &:last-child
+        {
+            margin-right: unset;
+        }
+        i
+        {
+            font-size: 18px;
+        }
+        &:hover, &.checked
+        {
+            background-color: $red_color;
+            *
+            {
+                color: white;
+            }
+        }
+        span
+        {
+            padding-top: 6px;
+        }
+    }
+    
+    .amount_field_container
+    {
+        flex-direction: column;
+        input
+        {
+            width: 100%;
+            margin-top: 24px;
+            &:first-child
+            {
+                margin-top: unset;
+            }
+        }
+    }
+}
+.regenerate_details
+{
+    border-top: 1px solid black;
+    // border-bottom: 1px solid black;
+    padding-top: 24px;
+    h3
+    {
+        width: calc(50% + 224px);
+        text-align: center;
+    }
+}
+.button_generator
+{
+    i
+    {
+        font-size: 18px;
+    }
+    align-self: flex-end;
+    height: 45px;
+}
+
+.hidden
+{
+    display: none;
+}
+
+.details_array
+{
+    display: grid;
+    row-gap: 24px;
+}

@@ -1,0 +1,17 @@
+@import './variables';
+
+.form_group
+{
+    label
+    {
+        display: flex;
+        align-items: center;
+        margin-right: 24px;
+        cursor: pointer;
+    }
+    input[type=radio]
+    {
+        margin-right: 12px;
+        cursor: pointer;
+    }
+}

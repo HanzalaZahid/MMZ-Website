@@ -1,0 +1,38 @@
+@import "./variables";
+
+.step-content
+{
+    padding: 24px 0px !important;
+}
+.step-app > .step-content
+{
+    border: none!important;
+}
+.step-app > .step-steps > li
+{
+    background-color: $primary_color!important;
+    color: white!important;
+}
+.step-app > .step-steps > li.active
+{
+    background-color: $red_color!important;
+}
+.step-footer
+{
+    padding-left: 22px;
+    margin-top: 0 !important;
+    display: flex;
+    button
+    {
+        margin-right: 12px;
+    }
+}
+
+.member_group
+{
+    button
+    {
+        height: 45px;
+        align-self: center;
+    }
+}
