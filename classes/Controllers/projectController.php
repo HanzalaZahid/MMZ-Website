@@ -20,4 +20,21 @@ class projectController{
         $result =   $this->model->getCities();
         return $result;
     }
+    public function getProvinces()
+    {
+        $result =   $this->model->getProvinces();
+        return $result;
+    }
+}
+
+
+
+
+
+
+if (isset($_REQUEST['province_id'])){
+    $controller  =   new projectController();
+    $response   =   $controller->getProvinceCities($_REQUEST['province_id']);
+    $cities = array();
+    echo json_encode($response);
 }

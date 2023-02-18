@@ -55,39 +55,29 @@
                                         </select>
                                         <a href="./add_client.html" target="_blank" class=" button secondary_button">Add New</a>
                                     </div>
-                                    <!-- <div class="form_group">
-                                        <div class="label">Select Province</div>
-                                        <select name="select_province" id="">
-                                            <option value="">--Select Province--</option>
-                                            <option value="1">Punjab</option>
-                                            <option value="2">Sindh</option>
-                                            <option value="3">Khyber Pakhtunkhwa</option>
-                                            <option value="4">Balouchistan</option>
-                                            <option value="4">Islamabad/Capital</option>
-                                            <option value="4">Gilgit Baltistan</option>
-                                        </select>
-                                    </div> -->
                                     <div class="form_group">
-                                        <div class="label">Select City</div>
+                                        <div class="label">Select Province</div>
                                         <?php
                                             $project_controller    =   new projectController();
-                                            $list   =   $project_controller->getCities();
+                                            $provinces_list        =    $project_controller->getProvinces();
                                         ?>
-                                        <select name="select_city" id="">
-                                            <option value="0">--Select City--</option>
+                                        <select name="select_province" id="select_province">
+                                            <option value="">--Select Province--</option>
                                             <?php
-                                                foreach($list as $list){
-                                                    $name   =   $list['city_name'];
-                                                    $id     =   $list['city_id'];
-                                                    ?>
+                                                foreach($provinces_list as $list){
+                                                    $name   =   $list['province_name'];
+                                                    $id     =   $list['province_id'];
+                                            ?>
                                                     <option value="<?php echo $id ?>"><?php echo $name ?></option>
-                                                <?php 
+                                            <?php 
                                                 } 
-                                                ?>
-                                            <option value="1">Sargodha</option>
-                                            <option value="2">Karachi</option>
-                                            <option value="3">Lahore</option>
-                                            <option value="4">Faisalabad</option>
+                                            ?>
+                                        </select>
+                                    </div>
+                                    <div class="form_group">
+                                        <div class="label">Select City</div>
+                                        <select name="select_city" id="select_city">
+                                            <option value="0">--Select City--</option>
                                         </select>
                                     </div>
                                     <div class="form_group">
@@ -136,6 +126,31 @@
     </div>
     <script>
         $('.add_Project_form').steps();
+
+        $('#select_province').on('change', function(){
+            let val =   $('#select_province').find(":selected").val();
+            var citySelect = document.getElementById('select_city');
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', './classes/controllers/projectController.php?province_id=' + val);
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    // Parse the JSON response
+                    var cities = JSON.parse(xhr.responseText);
+
+                    // Clear the city select element
+                    citySelect.innerHTML = '<option value="">--Select City--</option>';
+
+                    // Add the new cities to the city select element
+                    cities.forEach(function(city) {
+                        var option = document.createElement('option');
+                        option.value = city.city_id;
+                        option.textContent = city.city_name;
+                        citySelect.appendChild(option);
+                    });
+                }
+            };
+            xhr.send();
+        })
     </script>
 </body>
 </html>
