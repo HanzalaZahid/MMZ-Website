@@ -1,3 +1,7 @@
+<?php
+
+    require_once "./classes/Controllers/projectController.php";
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -51,7 +55,7 @@
                                         </select>
                                         <a href="./add_client.html" target="_blank" class=" button secondary_button">Add New</a>
                                     </div>
-                                    <div class="form_group">
+                                    <!-- <div class="form_group">
                                         <div class="label">Select Province</div>
                                         <select name="select_province" id="">
                                             <option value="">--Select Province--</option>
@@ -62,11 +66,24 @@
                                             <option value="4">Islamabad/Capital</option>
                                             <option value="4">Gilgit Baltistan</option>
                                         </select>
-                                    </div>
+                                    </div> -->
                                     <div class="form_group">
                                         <div class="label">Select City</div>
+                                        <?php
+                                            $project_controller    =   new projectController();
+                                            $list   =   $project_controller->getCities();
+                                        ?>
                                         <select name="select_city" id="">
                                             <option value="0">--Select City--</option>
+                                            <?php
+                                                foreach($list as $list){
+                                                    $name   =   $list['city_name'];
+                                                    $id     =   $list['city_id'];
+                                                    ?>
+                                                    <option value="<?php echo $id ?>"><?php echo $name ?></option>
+                                                <?php 
+                                                } 
+                                                ?>
                                             <option value="1">Sargodha</option>
                                             <option value="2">Karachi</option>
                                             <option value="3">Lahore</option>

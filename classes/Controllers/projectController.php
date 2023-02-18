@@ -1,6 +1,6 @@
 <?php
 
-require_once "../models/project.php";
+require_once __DIR__ ."/../models/project.php";
 
 class projectController{
     private $model;
@@ -13,6 +13,11 @@ class projectController{
     public function getProvinceCities($province)
     {
         $result =   $this->model->getProvinceCities($province);
+        return $result;
+    }
+    public function getCities()
+    {
+        $result =   $this->model->getCities();
         return $result;
     }
 }
