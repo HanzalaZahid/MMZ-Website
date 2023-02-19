@@ -9,7 +9,10 @@ class Project
         $this->pdo  =   Database::getInstance();
     }
 
+    public function setProject($data)
+    {
 
+    }
     public function getProvinceCities($province)
     {
         try{

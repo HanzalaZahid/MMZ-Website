@@ -128,22 +128,22 @@ $('.withdrawal_form').validate(
     }
 );
 
-$('.add_Project_form').validate(
-    {
-        rules:
-        {
-            select_client: 'required',
-            select_province: 'required',
-            select_city: 'required',
-            member: 'required'
-        },
-        messages:
-        {
+// $('.add_Project_form').validate(
+//     {
+//         rules:
+//         {
+//             select_client: 'required',
+//             select_province: 'required',
+//             select_city: 'required',
+//             member: 'required'
+//         },
+//         messages:
+//         {
 
-        },
+//         },
 
-    }
-);
+//     }
+// );
 $('.admin_login_form').validate(
     {
         rules:

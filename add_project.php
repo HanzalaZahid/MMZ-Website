@@ -38,98 +38,97 @@
                     <h2 class="titile">Add Project</h2>
                 </div>
                 <div class="wrapper">
-                    <form action="" class="add_Project_form grid">                
-                        <div class="step-app" id="demo">
-                            <ul class="step-steps">
-                            <li data-step-target="step1">Project Information</li>
-                            <li data-step-target="step2">Project Team</li>
-                            </ul>
-                            <div class="step-content">
-                            <div class="step-tab-panel" data-step="step1">
-                                <div class="grid form">
+                    <form class="step-app" method="post" action="./classes/Controllers/projectController.php" id="demo">
+                        <ul class="step-steps">
+                        <li data-step-target="step1">Project Information</li>
+                        <li data-step-target="step2">Project Team</li>
+                        </ul>
+                        <div class="step-content">
+                        <div class="step-tab-panel" data-step="step1">
+                            <div class="grid form">
+                            <div class="form_group">
+                                    <div class="label">Select Client</div>
+                                    <?php
+                                        $client_controller    =   new clientController();
+                                        $client_list        =    $client_controller->getAllClients();
+                                    ?>
+                                    <select name="select_client" id="select_client">
+                                        <option value="">--Select Client--</option>
+                                        <?php
+                                            foreach($client_list as $list){
+                                                $name   =   $list['client_name'];
+                                                $address   =   $list['client_address'];
+                                                $id     =   $list['client_id'];
+                                        ?>
+                                        <option value="<?php echo $id ?>"><?php echo $name . ' - ' . $address?></option>
+                                        <?php 
+                                            } 
+                                        ?>
+                                    </select>
+                                    <a href="./add_client.php" target="_blank" class=" button secondary_button">Add New</a>
+                                </div>
                                 <div class="form_group">
-                                        <div class="label">Select Client</div>
+                                    <div class="label">Select Province</div>
+                                    <?php
+                                        $project_controller    =   new projectController();
+                                        $provinces_list        =    $project_controller->getProvinces();
+                                    ?>
+                                    <select name="select_province" id="select_province">
+                                        <option value="">--Select Province--</option>
                                         <?php
-                                            $client_controller    =   new clientController();
-                                            $client_list        =    $client_controller->getAllClients();
+                                            foreach($provinces_list as $list){
+                                                $name   =   $list['province_name'];
+                                                $id     =   $list['province_id'];
                                         ?>
-                                        <select name="select_client" id="select_client">
-                                            <option value="">--Select Client--</option>
-                                            <?php
-                                                foreach($client_list as $list){
-                                                    $name   =   $list['client_name'];
-                                                    $address   =   $list['client_address'];
-                                                    $id     =   $list['client_id'];
-                                            ?>
-                                            <option value="<?php echo $id ?>"><?php echo $name . ' - ' . $address?></option>
-                                            <?php 
-                                                } 
-                                            ?>
-                                        </select>
-                                    </div>
-                                    <div class="form_group">
-                                        <div class="label">Select Province</div>
-                                        <?php
-                                            $project_controller    =   new projectController();
-                                            $provinces_list        =    $project_controller->getProvinces();
+                                        <option value="<?php echo $id ?>"><?php echo $name ?></option>
+                                        <?php 
+                                            } 
                                         ?>
-                                        <select name="select_province" id="select_province">
-                                            <option value="">--Select Province--</option>
-                                            <?php
-                                                foreach($provinces_list as $list){
-                                                    $name   =   $list['province_name'];
-                                                    $id     =   $list['province_id'];
-                                            ?>
-                                            <option value="<?php echo $id ?>"><?php echo $name ?></option>
-                                            <?php 
-                                                } 
-                                            ?>
-                                        </select>
-                                    </div>
-                                    <div class="form_group">
-                                        <div class="label">Select City</div>
-                                        <select name="select_city" id="select_city">
-                                            <option value="0">--Select City--</option>
-                                        </select>
-                                    </div>
-                                    <div class="form_group">
-                                        <div class="label">Start Date</div>
-                                        <input type="date" name="project_start_date" id="">
-                                    </div>
-                                    <div class="form_group">
-                                        <div class="label">End Date</div>
-                                        <input type="date" name="project_end_date" id="">
-                                    </div>
-                                    <div class="form_group">
-                                        <div class="label">Total Days to Complete Project</div>
-                                        <input type="number" name="project_days" id="" placeholder="Total Days to Complete Project">
-                                    </div>
+                                    </select>
+                                </div>
+                                <div class="form_group">
+                                    <div class="label">Select City</div>
+                                    <select name="select_city" id="select_city">
+                                        <option value="0">--Select City--</option>
+                                    </select>
+                                </div>
+                                <div class="form_group">
+                                    <div class="label">Start Date</div>
+                                    <input type="date" name="project_start_date" id="">
+                                </div>
+                                <div class="form_group">
+                                    <div class="label">End Date</div>
+                                    <input type="date" name="project_end_date" id="">
+                                </div>
+                                <div class="form_group">
+                                    <div class="label">Total Days to Complete Project</div>
+                                    <input type="number" name="project_days" id="" placeholder="Total Days to Complete Project">
                                 </div>
                             </div>
-                            <div class="step-tab-panel" data-step="step2">
-                                <div class="grid form project_team_form">
-                                    <div class="form_group member_group">
-                                        <div class="label">Team Member 1</div>
-                                        <select name="member" id="">
-                                            <option value="">--Select Team Member--</option>
-                                            <option value="1">Ameer Hamza (Electrician)</option>
-                                            <option value="2">Riaz (Carpenter)</option>
-                                            <option value="3">Akbar (Carpenter)</option>
-                                            <option value="3">Touseef (Carpenter)</option>
-                                        </select>
-                                    </div>
-                                    <div class="form_group generator_group">
-                                        <div class="label"></div>
-                                        <button type="button" class="primary_button new_member_field_generator"><i class="bi bi-plus-lg"></i></button>
-                                    </div>
+                        </div>
+                        <div class="step-tab-panel" data-step="step2">
+                            <div class="grid form project_team_form">
+                                <div class="form_group member_group">
+                                    <div class="label">Team Member 1</div>
+                                    <select name="member" id="">
+                                        <option value="">--Select Team Member--</option>
+                                        <option value="1">Ameer Hamza (Electrician)</option>
+                                        <option value="2">Riaz (Carpenter)</option>
+                                        <option value="3">Akbar (Carpenter)</option>
+                                        <option value="3">Touseef (Carpenter)</option>
+                                    </select>
+                                </div>
+                                <div class="form_group generator_group">
+                                    <div class="label"></div>
+                                    <button type="button" class="primary_button new_member_field_generator"><i class="bi bi-plus-lg"></i></button>
                                 </div>
                             </div>
-                            </div>
-                            <div class="step-footer">
-                            <button data-step-action="prev" class="step-btn secondary_button">Previous</button>
-                            <button data-step-action="next" class="step-btn primary_button">Next</button>
-                            <button data-step-action="finish" class="step-btn primary_button">Finish</button>
-                            </div>
+                        </div>
+                        </div>
+                        <div class="step-footer">
+                        <button data-step-action="prev" class="step-btn secondary_button">Previous</button>
+                        <button data-step-action="next" class="step-btn primary_button">Next</button>
+                        <button data-step-action="finish" class="step-btn primary_button">Finish</button>
                         </div>
                     </form>
                 </div>
@@ -137,7 +136,12 @@
         </div>
     </div>
     <script>
-        $('.add_Project_form').steps();
+        $('#demo').steps({
+            onFinish: function () { 
+                // alert('complete'); 
+                $('#demo').submit();
+            }
+        });
 
         $('#select_province').on('change', function(){
             let val =   $('#select_province').find(":selected").val();
@@ -163,6 +167,7 @@
             };
             xhr.send();
         })
+
     </script>
 </body>
 </html>

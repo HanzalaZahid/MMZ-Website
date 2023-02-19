@@ -38,3 +38,7 @@ if (isset($_REQUEST['province_id'])){
     $cities = array();
     echo json_encode($response);
 }
+
+if (isset($_POST['select_client'])) {
+    ECHO "DONE";
+}

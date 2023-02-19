@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 17, 2023 at 01:58 PM
+-- Generation Time: Feb 19, 2023 at 02:56 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -200,6 +200,44 @@ INSERT INTO `cities` (`city_id`, `city_name`, `city_province`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `clients`
+--
+
+CREATE TABLE `clients` (
+  `client_id` int(11) NOT NULL,
+  `client_name` varchar(60) NOT NULL,
+  `client_type` int(11) NOT NULL,
+  `client_address` varchar(200) NOT NULL,
+  `client_contact` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `clients`
+--
+
+INSERT INTO `clients` (`client_id`, `client_name`, `client_type`, `client_address`, `client_contact`) VALUES
+(6, 'NDURE', 1, 'JAIL ROAD LAHORE', ''),
+(7, 'SERVIS', 1, 'JAIL ROAD LAHORE', ''),
+(8, 'Raja Rani', 0, 'City Road Sargodha', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `projects`
+--
+
+CREATE TABLE `projects` (
+  `project_id` int(11) NOT NULL,
+  `project_name` varchar(100) NOT NULL,
+  `project_client` int(11) NOT NULL,
+  `project_start_date` date NOT NULL,
+  `project_end_date` date NOT NULL,
+  `project_city` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `provinces`
 --
 
@@ -256,6 +294,20 @@ ALTER TABLE `cities`
   ADD KEY `city_province_2` (`city_province`);
 
 --
+-- Indexes for table `clients`
+--
+ALTER TABLE `clients`
+  ADD PRIMARY KEY (`client_id`);
+
+--
+-- Indexes for table `projects`
+--
+ALTER TABLE `projects`
+  ADD PRIMARY KEY (`project_id`),
+  ADD KEY `FK_PROJECTS_CLIENT` (`project_client`),
+  ADD KEY `FK_PROJECTS_CITIES` (`project_city`);
+
+--
 -- Indexes for table `provinces`
 --
 ALTER TABLE `provinces`
@@ -278,6 +330,18 @@ ALTER TABLE `cities`
   MODIFY `city_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=257;
 
 --
+-- AUTO_INCREMENT for table `clients`
+--
+ALTER TABLE `clients`
+  MODIFY `client_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `projects`
+--
+ALTER TABLE `projects`
+  MODIFY `project_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `provinces`
 --
 ALTER TABLE `provinces`
@@ -298,6 +362,13 @@ ALTER TABLE `users`
 --
 ALTER TABLE `cities`
   ADD CONSTRAINT `FK_CITIES_PROVINCES` FOREIGN KEY (`city_province`) REFERENCES `provinces` (`province_id`);
+
+--
+-- Constraints for table `projects`
+--
+ALTER TABLE `projects`
+  ADD CONSTRAINT `FK_PROJECTS_CITIES` FOREIGN KEY (`project_city`) REFERENCES `cities` (`city_id`),
+  ADD CONSTRAINT `FK_PROJECTS_CLIENT` FOREIGN KEY (`project_client`) REFERENCES `clients` (`client_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
