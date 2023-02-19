@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 19, 2023 at 02:56 PM
+-- Generation Time: Feb 19, 2023 at 09:33 PM
 -- Server version: 10.4.27-MariaDB
--- PHP Version: 8.2.0
+-- PHP Version: 8.0.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,6 +20,63 @@ SET time_zone = "+00:00";
 --
 -- Database: `mmzinteriors`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `banks`
+--
+
+CREATE TABLE `banks` (
+  `bank_id` int(11) NOT NULL,
+  `bank_name` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `banks`
+--
+
+INSERT INTO `banks` (`bank_id`, `bank_name`) VALUES
+(1, '(ABL) Allied Bank Limited'),
+(2, '(AMBL) Apna Microfinance Bank Limited'),
+(3, '(AKBL) Askari Bank Limited'),
+(4, '(BAHL) Bank Al Habib Limited'),
+(5, '(BAFL) Bank Alfalah Limited'),
+(6, '(BOK) Bank of Khyber'),
+(7, '(BIPL) BankIslami Pakistan Limited'),
+(8, '(DIBPL) Dubai Islamic Bank Pakistan Limited'),
+(9, '(DIBPLP) Dubai Islamic Bank Pakistan Limited Priority'),
+(10, 'EasyPaisa'),
+(11, '(FBL) Faysal Bank Limited'),
+(12, '(FMBL) FINCA Microfinance Bank Limited'),
+(13, '(FWBL) First Women Bank Limited'),
+(14, '(HBL) Habib Bank Limited'),
+(15, '(HMB) Habib Metropolitan Bank Limited'),
+(16, 'JazzCash'),
+(17, '(JSBL) JS Bank Limited'),
+(18, 'Keenu NetConnect'),
+(19, '(KMBL) Khushhali Microfinance Bank Limited'),
+(20, '(MCB) MCB Bank Limited'),
+(21, '(MBL) Meezan Bank Limited'),
+(22, '(NBP) National Bank of Pakistan'),
+(23, '(NIB) NIB Bank Limited'),
+(24, '(PBIC) Pak Brunei Investment Company Limited'),
+(25, 'SadaPay'),
+(26, '(SILK) Silkbank Limited'),
+(27, '(SBL) Sindh Bank Limited'),
+(28, '(SBL) Soneri Bank Limited'),
+(29, '(SCBPL) Standard Chartered Bank (Pakistan) Limited'),
+(30, '(SMBL) Summit Bank Limited'),
+(31, '(TMBL) Telenor Microfinance Bank Limited (formerly Tameer Microfinance Bank Limited)'),
+(32, '(BOKI) The Bank of Khyber Islamic'),
+(33, '(BOP) The Bank of Punjab'),
+(34, '(FMFB) The First Microfinance Bank Limited'),
+(35, '(PPCBL) The Punjab Provincial Cooperative Bank Limited'),
+(36, '(PPCBLI) The Punjab Provincial Cooperative Bank Limited Islamic'),
+(37, '(SPCBL) The Sindh Provincial Cooperative Bank Limited'),
+(38, '(UBL) United Bank Limited'),
+(39, 'Upaisa'),
+(40, '(ZTBL) Zarai Taraqiati Bank Limited');
 
 -- --------------------------------------------------------
 
@@ -235,6 +292,15 @@ CREATE TABLE `projects` (
   `project_city` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `projects`
+--
+
+INSERT INTO `projects` (`project_id`, `project_name`, `project_client`, `project_start_date`, `project_end_date`, `project_city`) VALUES
+(1, 'Raja Rani Faisalabad 0223', 8, '2023-02-20', '2023-02-28', 4),
+(3, 'NDURE Rahimyar Khan 0223', 6, '2023-02-20', '2023-03-09', 23),
+(4, 'NDURE Lahore 0223', 6, '2023-02-20', '2023-02-20', 3);
+
 -- --------------------------------------------------------
 
 --
@@ -286,6 +352,12 @@ INSERT INTO `users` (`user_id`, `user_firstname`, `user_lastname`, `user_email`,
 --
 
 --
+-- Indexes for table `banks`
+--
+ALTER TABLE `banks`
+  ADD PRIMARY KEY (`bank_id`);
+
+--
 -- Indexes for table `cities`
 --
 ALTER TABLE `cities`
@@ -324,6 +396,12 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `banks`
+--
+ALTER TABLE `banks`
+  MODIFY `bank_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+
+--
 -- AUTO_INCREMENT for table `cities`
 --
 ALTER TABLE `cities`
@@ -339,7 +417,7 @@ ALTER TABLE `clients`
 -- AUTO_INCREMENT for table `projects`
 --
 ALTER TABLE `projects`
-  MODIFY `project_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `project_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `provinces`

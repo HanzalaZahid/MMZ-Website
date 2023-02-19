@@ -26,5 +26,13 @@ if (isset($_REQUEST['message']))
     {
         $message  =   "Password Donot Match";
     }
+    if($_REQUEST['message']  ==  "project_already_exists")
+    {
+        $message  =   "Project Already Exists";
+    }
+    if($_REQUEST['message']  ==  "success")
+    {
+        $message  =   "Successfully Added";
+    }
 }
 ?>

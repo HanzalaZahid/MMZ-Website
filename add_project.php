@@ -2,6 +2,7 @@
 
     require_once "./classes/Controllers/projectController.php";
     require_once "./classes/Controllers/clientController.php";
+    include "./includes/message_helper.inc.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,7 +21,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- SCRIPTS -->
     <script src="./assets/js/behaviour/nav_toggle.js" defer></script>
-    <script src="./assets/js/behaviour/add_project.js" defer></script>
+    <script src="./assets/js/behaviour/add_project.js?<?php echo time(); ?>" defer></script>
     <script src="./assets/js/behaviour/validateForm.js" defer></script>
     <!-- Plugins -->
     <script src="./assets/plugins/jquery.steps/dist/jquery-steps.min.js"></script>
@@ -103,6 +104,9 @@
                                 <div class="form_group">
                                     <div class="label">Total Days to Complete Project</div>
                                     <input type="number" name="project_days" id="" placeholder="Total Days to Complete Project">
+                                </div>
+                                <div class="form_group">
+                                    <p class="php_form_error"><?php echo $message ?></p>
                                 </div>
                             </div>
                         </div>

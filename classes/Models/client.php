@@ -25,7 +25,7 @@ class Client{
             $query  =   'SELECT * FROM clients where client_id  =   ?';
             $stmt   =   $this->pdo->prepare($query);
             $stmt->execute([$client_id]);
-            return($stmt->fetchAll());
+            return($stmt->fetch());
         } catch (PDOException $e){
             echo "UNABLE TO GET CLIENT: ".$e->getMessage();
         }

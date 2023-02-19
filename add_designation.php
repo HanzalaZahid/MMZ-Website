@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Project</title>
+    <title>Add Designation</title>
     <!-- STYLESHEETS -->
     <link rel="stylesheet" href="./assets/css/style.css">
     <link rel="stylesheet" href="./assets/css/header_nav.css">
@@ -29,7 +29,7 @@
                     <form action="" class="add_designation_form grid">
                         <div class="form_group">
                             <div class="label">Designation Name</div>
-                            <input type="text" name="designation_name" placeholder="Designation Name">
+                            <input type="text" name="designation_name" placeholder="Designation Name" required>
                         </div>
                         <div class="form_group">
                             <input type="submit" class="primary_button" value="Add designation">

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Transaction</title>
+    <title>Add Beneficiary</title>
     <!-- STYLESHEETS -->
     <link rel="stylesheet" href="./assets/css/style.css">
     <link rel="stylesheet" href="./assets/css/header_nav.css">
@@ -66,7 +66,7 @@
                                 <option value="2">Electrician</option>
                                 <option value="3">Welder</option>
                             </select>
-                            <a href="./add_designation.html" target="_blank" class="secondary_button button">Add New</a>
+                            <a href="./add_designation.php" target="_blank" class="secondary_button button">Add New</a>
                             <label id="employee_designation_select-error" class="error" for="employee_designation_select"></label>
                         </div>
                         <div class="form_group toggle_group hidden">
