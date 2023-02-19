@@ -1,6 +1,7 @@
 <?php
 
     require_once "./classes/Controllers/projectController.php";
+    require_once "./classes/Controllers/clientController.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -46,14 +47,25 @@
                             <div class="step-content">
                             <div class="step-tab-panel" data-step="step1">
                                 <div class="grid form">
-                                    <div class="form_group">
+                                <div class="form_group">
                                         <div class="label">Select Client</div>
-                                        <select name="select_client" id="">
+                                        <?php
+                                            $client_controller    =   new clientController();
+                                            $client_list        =    $client_controller->getAllClients();
+                                        ?>
+                                        <select name="select_client" id="select_client">
                                             <option value="">--Select Client--</option>
-                                            <option value="1">NDURE</option>
-                                            <option value="2">SERVIS</option>
+                                            <?php
+                                                foreach($client_list as $list){
+                                                    $name   =   $list['client_name'];
+                                                    $address   =   $list['client_address'];
+                                                    $id     =   $list['client_id'];
+                                            ?>
+                                            <option value="<?php echo $id ?>"><?php echo $name . ' - ' . $address?></option>
+                                            <?php 
+                                                } 
+                                            ?>
                                         </select>
-                                        <a href="./add_client.html" target="_blank" class=" button secondary_button">Add New</a>
                                     </div>
                                     <div class="form_group">
                                         <div class="label">Select Province</div>
@@ -68,7 +80,7 @@
                                                     $name   =   $list['province_name'];
                                                     $id     =   $list['province_id'];
                                             ?>
-                                                    <option value="<?php echo $id ?>"><?php echo $name ?></option>
+                                            <option value="<?php echo $id ?>"><?php echo $name ?></option>
                                             <?php 
                                                 } 
                                             ?>

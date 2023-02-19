@@ -1,26 +1,8 @@
 <?php
     include "./includes/class_loader.inc.php";
+    include "./includes/message_helper.inc.php";
     
-    $message    =   "";
-    if (isset($_REQUEST['message']))
-    {
-        if($_REQUEST['message']  ==  "user_already_exixts")
-        {
-            $message  =   "User Already Exists";
-        }
-        if($_REQUEST['message']  ==  "user_added")
-        {
-            $message  =   "User Added";
-        }
-        if($_REQUEST['message']  ==  "incomplete_data")
-        {
-            $message  =   "Please fill full form";
-        }
-        if($_REQUEST['message']  ==  "password_not_matched")
-        {
-            $message  =   "Password Donot Match";
-        }
-    }
+    
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -81,7 +63,7 @@
                             <input class="primary_button" name="signupsubmit" type="submit" value="Add User">
                         </div>
                         <div class="form_group">
-                            <p class="error"><?php echo $message ?></p>
+                            <p class="php_form_error"><?php echo $message ?></p>
                         </div>
                     </form>
                 </div>

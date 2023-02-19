@@ -1,7 +1,7 @@
 <?php
 
 require_once "../models/user.php";
-
+// require_once __DIR__ ."/../models/project.php";
 class UserController
 {
     private $model;
@@ -77,6 +77,7 @@ class UserController
 
     private function emailCheck($email){
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)){
+            header('Location:../../signup.php?message=emailerror');
             array_push($this->inputErrors, "Email is not in correct formate");
             return false;
         }
