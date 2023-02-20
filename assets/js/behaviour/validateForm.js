@@ -109,41 +109,41 @@ $('.bank_transfer_form').validate(
     }
 );
 
-$('.withdrawal_form').validate(
-    {
-        rules:
-        {
-            withdrawal_date: 'required',
-            withdrawal_project: 'required',
-            withdrawal_transaction_catagory: 'required',
-            withdrawal_beneficiary: 'required',
-            withdrawal_purpose: 'required',
-            cash_amount: 'required'
-
-        },
-        messages:
-        {
-            // bank_transfer_beneficiary: "Please Select Beneficiary"
-        }
-    }
-);
-
-// $('.add_Project_form').validate(
+// $('.withdrawal_form').validate(
 //     {
 //         rules:
 //         {
-//             select_client: 'required',
-//             select_province: 'required',
-//             select_city: 'required',
-//             member: 'required'
+//             withdrawal_date: 'required',
+//             withdrawal_project: 'required',
+//             withdrawal_transaction_catagory: 'required',
+//             withdrawal_beneficiary: 'required',
+//             withdrawal_purpose: 'required',
+//             cash_amount: 'required'
+
 //         },
 //         messages:
 //         {
-
-//         },
-
+//             // bank_transfer_beneficiary: "Please Select Beneficiary"
+//         }
 //     }
 // );
+
+$('.add_Project_form').validate(
+    {
+        rules:
+        {
+            select_client: 'required',
+            select_province: 'required',
+            select_city: 'required',
+            member: 'required'
+        },
+        messages:
+        {
+
+        },
+
+    }
+);
 $('.admin_login_form').validate(
     {
         rules:

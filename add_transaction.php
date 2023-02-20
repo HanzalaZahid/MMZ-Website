@@ -16,13 +16,16 @@
     <!-- SCRIPTS -->
     <script src="./assets/js/behaviour/nav_toggle.js" defer></script>
     <script src="./assets/js/behaviour/add_transaction.js" defer></script>
-    <script src="./assets/js/behaviour/validateForm.js" defer></script>
+    <script src="./assets/js/behaviour/validateForm.js?<?php echo time(); ?>" defer></script>
     <!-- plugins -->
     <script src="./assets/plugins/jquery-validation/dist/jquery.validate.min.js"></script>
 
 
 </head>
 <body>
+    <?php
+    include "./includes/header_nav.php";
+    ?>
     <div class="body">
         <div class="main_container">
             <div class="card">
@@ -38,7 +41,7 @@
                             <li><button type="button" class="primary_button_nofill other_button" type="submit">Other</button></li>
                         </ul>
                     </form>
-                    <form action="" class="add_transaction_form bank_transfer_form grid">
+                    <form action="./classes/controllers/transactionController.php" method="post" class="add_transaction_form bank_transfer_form grid">
                         <div class="form_group">
                             <div class="label">Select Date</div>
                             <input type="date" name="bank_transfer_date" id="" class="date">
@@ -95,7 +98,7 @@
                             <input class="primary_button" name="bank_transfer_submit" type="submit" value="Add Transaction">
                         </div>
                     </form>
-                    <form action="" class="add_transaction_form withdrawal_form hidden grid">
+                    <form action="./classes/controllers/transactionController.php" method="post" class="add_transaction_form withdrawal_form hidden grid">
                         <div class="form_group">
                             <div class="label">Date</div>
                             <input type="Date" name="withdrawal_date" id="" placeholder="Select Date">
@@ -111,7 +114,7 @@
                             <div class="regenerate_details grid">
                                 <h3 class="title">Details 1</h3>
                                 <div class="form_group">
-                                    <div class="label">Purpose</div>
+                                    <div class="label">Amount</div>
                                     <input type="number" name="cash_amount" id="" placeholder="Amount (Rs.)">
                                 </div>
                                 <div class="form_group">
@@ -137,17 +140,17 @@
                                 <div class="form_group">
                                     <div class="label">Catagory</div>
                                     <div class="catagory_group">
-                                        <input type="radio" name="withdrawal_transaction_catagory" id="withdrawal_form_purchase1" class="catagory">
+                                        <input type="radio" name="withdrawal_transaction_catagory1" value="purchase" id="withdrawal_form_purchase1" class="catagory">
                                         <label class="radio_button" for="withdrawal_form_purchase1">
                                             <i class="bi bi-cart"></i>
                                             <span>Purchase</span>
                                         </label>
-                                        <input type="radio" name="withdrawal_transaction_catagory" id="withdrawal_form_services1" class="catagory">
+                                        <input type="radio" name="withdrawal_transaction_catagory1" value="service" id="withdrawal_form_services1" class="catagory">
                                         <label class="radio_button" for="withdrawal_form_services1">
                                             <i class="bi bi-tools"></i>
                                             <span>Service</span>
                                         </label>
-                                        <input type="radio" checked name="withdrawal_transaction_catagory" id="withdrawal_form_others1" class="catagory other_radio">
+                                        <input type="radio" checked name="withdrawal_transaction_catagory1" value="others" id="withdrawal_form_others1" class="catagory other_radio">
                                         <label class="radio_button" for="withdrawal_form_others1">
                                             <i class="bi bi-asterisk"></i>
                                             <span>Others</span>

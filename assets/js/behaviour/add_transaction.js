@@ -87,6 +87,7 @@ $(document).ready(
                 clone.find('select option[value=0]').attr('selected','selected');
                 clone.find('.other_radio').prop('checked', true);
                 clone.find('input[type=text]').val('');
+                clone.find('input[type=number]').val('');
 
                 // Apeending TO Parent
                 catagoryID++;

@@ -102,3 +102,8 @@ if (isset($_POST['add_beneficiary_submit'])){
 
     $controller->insertBeneficairy($data);
 }
+
+
+if (isset($_POST['withdrawal_submit'])){
+    print_r($_POST);
+}

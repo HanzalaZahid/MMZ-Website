@@ -8,7 +8,7 @@ if (isset($_REQUEST['message']))
     }
     if($_REQUEST['message']  ==  "beneficiary_already_exixts")
     {
-        $message  =   "Beneficiary Already Exists";
+        $message  =   "Account Number Already Exists";
     }
     if($_REQUEST['message']  ==  "designation_already_exixts")
     {
