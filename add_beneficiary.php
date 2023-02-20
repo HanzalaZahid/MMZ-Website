@@ -1,3 +1,7 @@
+<?php
+require_once "./classes/Controllers/transactionController.php";
+include "./includes/message_helper.inc.php";
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,6 +27,9 @@
 
 </head>
 <body>
+    <?php
+    include "./includes/header_nav.php";
+    ?>
     <div class="body">
         <div class="main_container">
             <div class="card">
@@ -30,7 +37,7 @@
                     <h2 class="titile">Add Beneficiary</h2>
                 </div>
                 <div class="wrapper">
-                    <form action="" class="add_beneficiary_form grid">
+                    <form action="./classes/Controllers/transactionController.php" method="post" class="add_beneficiary_form grid">
                         <div class="form_group">
                             <div class="label">Name</div>
                             <input type="text" name="beneficiary_name" id="" placeholder="Full name of Beneficiary">
@@ -39,10 +46,22 @@
                             <div class="label">Bank</div>
                             <select name="pakistan_bank_list" id="">
                                 <option value="">--Select Bank--</option>
-                                <option value="1">Habib Bank Limited (HBL)</option>
-                                <option value="2">Meezan Bank</option>
-                                <option value="3">Bank Al Falah</option>
-                                <option value="4">Bank Al Habib</option>
+                                <?php
+                                
+                                $controller =   new TransactionController();
+                                $bank_list  =   $controller->getBankList();
+
+                                foreach($bank_list as $list)
+                                {
+                                    $name   =   $list['bank_name'];
+                                    $id   =   $list['bank_id'];
+                                    ?>
+                                    <option value="<?php echo $id ?>"><?php echo $name ?></option>
+                                    <?php
+                                }
+
+
+                                ?>
                             </select>
                         </div>
                         <div class="form_group">
@@ -51,34 +70,44 @@
                         </div>
                         <div class="form_group about_beneficiary_group">
                             <div class="label">About Beneficiary</div>
-                            <input type="text" name="" id="" placeholder="About Beneficiary">
+                            <input type="text" name="beneficiary_about" id="" placeholder="About Beneficiary">
                         </div>
                         <div class="form_group">
                             <div class="label">Is this Beneficiary your employee?</div>
-                            <input type="checkbox" class="beneficiary_checkbox" name="beneficiary_checkbox" id="">
+                            <input type="checkbox" class="beneficiary_checkbox" value="1" name="beneficiary_checkbox" id="">
                             <p>Check the box if your Beneficiary is also your employee</p>
                         </div>
                         <div class="form_group toggle_group hidden">
                             <div class="label">Designation</div>
                             <select name="employee_designation_select" id="">
                                 <option value="">--Select Designation--</option>
-                                <option value="1">Carpenter</option>
-                                <option value="2">Electrician</option>
-                                <option value="3">Welder</option>
+                                <?php
+                                $designation_list  =   $controller->getAllDesignations();
+                                // var_dump($designation_list);
+                                foreach($designation_list as $list)
+                                {
+                                    $name   =   $list['designation_name'];
+                                    $id   =   $list['designation_id'];
+                                    ?>
+                                    <option value="<?php echo $id ?>"><?php echo ucwords(strtolower($name)) ?></option>
+                                    <?php
+                                }
+
+
+                                ?>
                             </select>
                             <a href="./add_designation.php" target="_blank" class="secondary_button button">Add New</a>
                             <label id="employee_designation_select-error" class="error" for="employee_designation_select"></label>
                         </div>
                         <div class="form_group toggle_group hidden">
-                            <div class="label">Mobile Number 1</div>
-                            <input type="text" name="employee_mobile1" id="" placeholder="Mobile Number">
-                        </div>
-                        <div class="form_group toggle_group hidden">
-                            <div class="label">Mobile Number 2</div>
-                            <input type="text" name="employee_mobile2" id="" placeholder="Mobile Number">
+                            <div class="label">Mobile Number </div>
+                            <input type="text" name="employee_mobile" id="" placeholder="Mobile Number">
                         </div>
                         <div class="form_group">
-                            <input type="submit" class="primary_button" value="Add Beneficary">
+                            <p class="php_form_error"><?php echo $message ?></p>
+                        </div>
+                        <div class="form_group">
+                            <input type="submit" name="add_beneficiary_submit" class="primary_button" value="Add Beneficary">
                         </div>
                     </form>
                 </div>

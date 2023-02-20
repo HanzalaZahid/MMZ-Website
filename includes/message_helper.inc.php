@@ -6,6 +6,14 @@ if (isset($_REQUEST['message']))
     {
         $message  =   "User Already Exists";
     }
+    if($_REQUEST['message']  ==  "beneficiary_already_exixts")
+    {
+        $message  =   "Beneficiary Already Exists";
+    }
+    if($_REQUEST['message']  ==  "designation_already_exixts")
+    {
+        $message  =   "Designation Already Exists";
+    }
     if($_REQUEST['message']  ==  "user_added")
     {
         $message  =   "User Added";
@@ -33,6 +41,10 @@ if (isset($_REQUEST['message']))
     if($_REQUEST['message']  ==  "success")
     {
         $message  =   "Successfully Added";
+    }
+    if($_REQUEST['message']  ==  "failed")
+    {
+        $message  =   "Failed";
     }
 }
 ?>

@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 19, 2023 at 09:33 PM
+-- Generation Time: Feb 20, 2023 at 03:53 PM
 -- Server version: 10.4.27-MariaDB
--- PHP Version: 8.0.25
+-- PHP Version: 8.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -77,6 +77,28 @@ INSERT INTO `banks` (`bank_id`, `bank_name`) VALUES
 (38, '(UBL) United Bank Limited'),
 (39, 'Upaisa'),
 (40, '(ZTBL) Zarai Taraqiati Bank Limited');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `beneficiaries`
+--
+
+CREATE TABLE `beneficiaries` (
+  `beneficiary_id` int(11) NOT NULL,
+  `beneficiary_name` varchar(60) NOT NULL,
+  `beneficiary_bank` int(11) DEFAULT NULL,
+  `beneficiary_account_number` varchar(59) DEFAULT NULL,
+  `beneficiary_about` varchar(300) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `beneficiaries`
+--
+
+INSERT INTO `beneficiaries` (`beneficiary_id`, `beneficiary_name`, `beneficiary_bank`, `beneficiary_account_number`, `beneficiary_about`) VALUES
+(6, 'Hanzala Zahid', 14, '09067900615003', 'CO FOUNDER'),
+(7, 'AKBAR', 4, '54564156', '');
 
 -- --------------------------------------------------------
 
@@ -280,6 +302,45 @@ INSERT INTO `clients` (`client_id`, `client_name`, `client_type`, `client_addres
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `designations`
+--
+
+CREATE TABLE `designations` (
+  `designation_id` int(11) NOT NULL,
+  `designation_name` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `designations`
+--
+
+INSERT INTO `designations` (`designation_id`, `designation_name`) VALUES
+(1, 'CARPENTER'),
+(2, 'ELECTRICIAN'),
+(3, 'CIVIL WORKER');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `employees`
+--
+
+CREATE TABLE `employees` (
+  `employee_id` int(11) NOT NULL,
+  `employee_designation` int(11) DEFAULT NULL,
+  `employee_contact` varchar(30) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `employees`
+--
+
+INSERT INTO `employees` (`employee_id`, `employee_designation`, `employee_contact`) VALUES
+(7, 1, '0305234132.');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `projects`
 --
 
@@ -358,6 +419,13 @@ ALTER TABLE `banks`
   ADD PRIMARY KEY (`bank_id`);
 
 --
+-- Indexes for table `beneficiaries`
+--
+ALTER TABLE `beneficiaries`
+  ADD PRIMARY KEY (`beneficiary_id`),
+  ADD KEY `FK_BENEFICIARIES_BANKS` (`beneficiary_bank`);
+
+--
 -- Indexes for table `cities`
 --
 ALTER TABLE `cities`
@@ -370,6 +438,19 @@ ALTER TABLE `cities`
 --
 ALTER TABLE `clients`
   ADD PRIMARY KEY (`client_id`);
+
+--
+-- Indexes for table `designations`
+--
+ALTER TABLE `designations`
+  ADD PRIMARY KEY (`designation_id`);
+
+--
+-- Indexes for table `employees`
+--
+ALTER TABLE `employees`
+  ADD PRIMARY KEY (`employee_id`),
+  ADD KEY `FK_EMPLOYEES_DESIGNATION` (`employee_designation`);
 
 --
 -- Indexes for table `projects`
@@ -402,6 +483,12 @@ ALTER TABLE `banks`
   MODIFY `bank_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
+-- AUTO_INCREMENT for table `beneficiaries`
+--
+ALTER TABLE `beneficiaries`
+  MODIFY `beneficiary_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
 -- AUTO_INCREMENT for table `cities`
 --
 ALTER TABLE `cities`
@@ -412,6 +499,12 @@ ALTER TABLE `cities`
 --
 ALTER TABLE `clients`
   MODIFY `client_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `designations`
+--
+ALTER TABLE `designations`
+  MODIFY `designation_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `projects`
@@ -436,10 +529,23 @@ ALTER TABLE `users`
 --
 
 --
+-- Constraints for table `beneficiaries`
+--
+ALTER TABLE `beneficiaries`
+  ADD CONSTRAINT `FK_BENEFICIARIES_BANKS` FOREIGN KEY (`beneficiary_bank`) REFERENCES `banks` (`bank_id`);
+
+--
 -- Constraints for table `cities`
 --
 ALTER TABLE `cities`
   ADD CONSTRAINT `FK_CITIES_PROVINCES` FOREIGN KEY (`city_province`) REFERENCES `provinces` (`province_id`);
+
+--
+-- Constraints for table `employees`
+--
+ALTER TABLE `employees`
+  ADD CONSTRAINT `FK_EMPLOYEES_BENEFICIARIES` FOREIGN KEY (`employee_id`) REFERENCES `beneficiaries` (`beneficiary_id`),
+  ADD CONSTRAINT `FK_EMPLOYEES_DESIGNATION` FOREIGN KEY (`employee_designation`) REFERENCES `designations` (`designation_id`);
 
 --
 -- Constraints for table `projects`

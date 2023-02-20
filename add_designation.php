@@ -1,3 +1,7 @@
+<?php 
+    include "./includes/message_helper.inc.php";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,6 +23,9 @@
 
 </head>
 <body>
+    <?php 
+    include "./includes/header_nav.php";
+    ?>
     <div class="body">
         <div class="main_container">
             <div class="card">
@@ -26,13 +33,16 @@
                     <h2 class="titile">Add Designation</h2>
                 </div>
                 <div class="wrapper">
-                    <form action="" class="add_designation_form grid">
+                    <form action="./classes/Controllers/transactionController.php" method="post" class="add_designation_form grid">
                         <div class="form_group">
                             <div class="label">Designation Name</div>
                             <input type="text" name="designation_name" placeholder="Designation Name" required>
                         </div>
                         <div class="form_group">
-                            <input type="submit" class="primary_button" value="Add designation">
+                            <p class="php_form_error"><?php echo $message ?></p>
+                        </div>
+                        <div class="form_group">
+                            <input type="submit" name="add_designation_submit" class="primary_button" value="Add designation">
                         </div>
                     </form>
                 </div>
