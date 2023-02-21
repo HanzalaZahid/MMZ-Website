@@ -71,7 +71,8 @@ $(document).ready(
                 clone.find("h3").text('Details '+catagoryID);
 
                 // radio name update
-                clone.find('input[name="withdrawal_transaction_catagory1"]').attr('name',"withdrawal_transaction_catagory"+catagoryID);
+                // clone.find('input[name="withdrawal_transaction_catagory1"]').attr('name',"withdrawal_transaction_catagory"+catagoryID);
+                clone.find('input[name="withdrawal_transaction_catagory[1]"]').attr('name',"withdrawal_transaction_catagory["+catagoryID+"]");
 
                 // ID's update
                 clone.find('#withdrawal_form_purchase1').attr('id', "withdrawal_form_purchase"+catagoryID);
@@ -80,7 +81,7 @@ $(document).ready(
                 clone.find('label[for="withdrawal_form_services1"]').attr('for', "withdrawal_form_services"+catagoryID);
                 clone.find('#withdrawal_form_others1').attr('id', "withdrawal_form_others"+catagoryID);
 
-                // label for Update
+                // // label for Update
                 clone.find('label[for="withdrawal_form_others1"]').attr('for', "withdrawal_form_others"+catagoryID);
 
                 // resetting values
@@ -92,7 +93,6 @@ $(document).ready(
                 // Apeending TO Parent
                 catagoryID++;
                 clone.appendTo(parent);
-                console.log(clone)
             }
         );
     }

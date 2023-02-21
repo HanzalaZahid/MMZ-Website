@@ -105,5 +105,8 @@ if (isset($_POST['add_beneficiary_submit'])){
 
 
 if (isset($_POST['withdrawal_submit'])){
-    print_r($_POST);
+    $data   =   $_POST;
+    print_r($data);
+    $controller =   new TransactionController();
+
 }

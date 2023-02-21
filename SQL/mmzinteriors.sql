@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 20, 2023 at 03:53 PM
+-- Generation Time: Feb 21, 2023 at 12:11 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -385,6 +385,34 @@ INSERT INTO `provinces` (`province_id`, `province_name`) VALUES
 (5, 'Federal Terrority'),
 (6, 'Gilgit Baltistan'),
 (7, 'Azad Kashmir');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `transactions`
+--
+
+CREATE TABLE `transactions` (
+  `transaction_id` int(11) NOT NULL,
+  `transaction_data` date NOT NULL,
+  `transaction_amount` decimal(20,2) NOT NULL,
+  `transaction_account_used` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `transaction_details`
+--
+
+CREATE TABLE `transaction_details` (
+  `transaction_detail_id` int(11) NOT NULL,
+  `transaction_detail_beneficairy` int(11) NOT NULL,
+  `transaction_detail_amount` int(11) NOT NULL,
+  `transaction_detail_project` int(11) NOT NULL,
+  `transaction_detail_catagory` int(11) NOT NULL,
+  `transaction_detail_purpose` varchar(400) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 

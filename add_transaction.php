@@ -15,8 +15,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- SCRIPTS -->
     <script src="./assets/js/behaviour/nav_toggle.js" defer></script>
-    <script src="./assets/js/behaviour/add_transaction.js" defer></script>
-    <script src="./assets/js/behaviour/validateForm.js?<?php echo time(); ?>" defer></script>
+    <script src="./assets/js/behaviour/add_transaction.js?version=1" defer></script>
+    <script src="./assets/js/behaviour/validateForm.js" defer></script>
     <!-- plugins -->
     <script src="./assets/plugins/jquery-validation/dist/jquery.validate.min.js"></script>
 
@@ -115,11 +115,11 @@
                                 <h3 class="title">Details 1</h3>
                                 <div class="form_group">
                                     <div class="label">Amount</div>
-                                    <input type="number" name="cash_amount" id="" placeholder="Amount (Rs.)">
+                                    <input type="number" name="cash_amount[]" id="" placeholder="Amount (Rs.)">
                                 </div>
                                 <div class="form_group">
                                     <div class="label">Beneficiary Name</div>
-                                    <select name="withdrawal_beneficiary" id="">
+                                    <select name="withdrawal_beneficiary[]" id="">
                                         <option value="">--Select Beneficiary--</option>
                                         <option value="1">Hanzala Zahid</option>
                                         <option value="2">Tayyab Zahid</option>
@@ -129,7 +129,7 @@
                                 </div>
                                 <div class="form_group">
                                     <div class="label">Project Name</div>
-                                    <select name="withdrawal_project" id="">
+                                    <select name="withdrawal_project[]" id="">
                                         <option value="0">--Select Project--</option>
                                         <option value="1">NDURE Rahim Yar Khan</option>
                                         <option value="2">Servis Chishtiyan</option>
@@ -140,17 +140,17 @@
                                 <div class="form_group">
                                     <div class="label">Catagory</div>
                                     <div class="catagory_group">
-                                        <input type="radio" name="withdrawal_transaction_catagory1" value="purchase" id="withdrawal_form_purchase1" class="catagory">
+                                        <input type="radio" name="withdrawal_transaction_catagory[1]" value="purchase" id="withdrawal_form_purchase1" class="catagory">
                                         <label class="radio_button" for="withdrawal_form_purchase1">
                                             <i class="bi bi-cart"></i>
                                             <span>Purchase</span>
                                         </label>
-                                        <input type="radio" name="withdrawal_transaction_catagory1" value="service" id="withdrawal_form_services1" class="catagory">
+                                        <input type="radio" name="withdrawal_transaction_catagory[1]" value="service" id="withdrawal_form_services1" class="catagory">
                                         <label class="radio_button" for="withdrawal_form_services1">
                                             <i class="bi bi-tools"></i>
                                             <span>Service</span>
                                         </label>
-                                        <input type="radio" checked name="withdrawal_transaction_catagory1" value="others" id="withdrawal_form_others1" class="catagory other_radio">
+                                        <input type="radio" checked name="withdrawal_transaction_catagory[1]" value="others" id="withdrawal_form_others1" class="catagory other_radio">
                                         <label class="radio_button" for="withdrawal_form_others1">
                                             <i class="bi bi-asterisk"></i>
                                             <span>Others</span>
