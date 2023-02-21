@@ -63,6 +63,23 @@ class TransactionController{
             exit;
         }
     }
+    public function addAccount($data){
+        if (!$this->empty($data['account_name']) && !$this->empty($data['account_number']) && !$this->empty($data['account_bank'])){
+            if (!$this->model->getAccount($data['account_number']))
+            {
+                $this->model->setAccount($data);
+                header('Location: ../../add_account.php?message=success');
+
+            }
+            else{
+                header('Location: ../../add_account.php?message=account_already_exixts');
+            }
+        }
+    }
+    public function getAllAccounts()
+    {
+        return $this->model->getAllAccounts();
+    }
     private function empty($value){
         if ($value  ==  "")
         {
@@ -109,4 +126,16 @@ if (isset($_POST['withdrawal_submit'])){
     print_r($data);
     $controller =   new TransactionController();
 
+}
+
+if (isset($_POST['bank_account_submit'])){
+    $data   =   [
+        'account_name'  => $_POST['bank_account_title'],
+        'account_number' => $_POST['bank_account_number'],
+        'account_bank' => $_POST['pakistan_bank_list']
+    ];
+
+    var_dump($data);
+    $controller =   new TransactionController();
+    $controller->addAccount($data);
 }

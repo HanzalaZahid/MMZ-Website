@@ -50,7 +50,7 @@ $(document).ready(
                 let element = document.createElement('input');
                 element.setAttribute("placeholder", "Amount (Rs.)");
                 element.setAttribute("type", "number");
-                element.setAttribute("name", "withdrawal_amount");
+                element.setAttribute("name", "withdrawal_amount[]");
                 element.setAttribute("id", "");
                 parent.append(element);
             }

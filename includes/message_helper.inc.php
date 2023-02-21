@@ -6,6 +6,10 @@ if (isset($_REQUEST['message']))
     {
         $message  =   "User Already Exists";
     }
+    if($_REQUEST['message']  ==  "account_already_exixts")
+    {
+        $message  =   "Account Already Exists";
+    }
     if($_REQUEST['message']  ==  "beneficiary_already_exixts")
     {
         $message  =   "Account Number Already Exists";

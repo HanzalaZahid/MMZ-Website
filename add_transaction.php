@@ -1,3 +1,8 @@
+<?php
+require_once "./classes/Controllers/transactionController.php";
+include "./includes/message_helper.inc.php";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,7 +20,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- SCRIPTS -->
     <script src="./assets/js/behaviour/nav_toggle.js" defer></script>
-    <script src="./assets/js/behaviour/add_transaction.js?version=1" defer></script>
+    <script src="./assets/js/behaviour/add_transaction.js?version=2" defer></script>
     <script src="./assets/js/behaviour/validateForm.js" defer></script>
     <!-- plugins -->
     <script src="./assets/plugins/jquery-validation/dist/jquery.validate.min.js"></script>
@@ -42,6 +47,28 @@
                         </ul>
                     </form>
                     <form action="./classes/controllers/transactionController.php" method="post" class="add_transaction_form bank_transfer_form grid">
+                        <div class="form_group">
+                            <div class="label">Account Used</div>
+                            <select name="transaction_account_used" id="" required>
+                                <option value="">--Select Account--</option>
+                                <?php
+                                
+                                $controller =   new TransactionController();
+                                $account_list  =   $controller->getAllAccounts();
+
+                                foreach($account_list as $list)
+                                {
+                                    $name   =   $list['bank_name']." - ".$list['account_title']." - ".$list['account_number'];
+                                    $id   =   $list['account_id'];
+                                    ?>
+                                    <option value="<?php echo $id ?>"><?php echo $name ?></option>
+                                    <?php
+                                }
+
+
+                                ?>
+                            </select>
+                        </div>
                         <div class="form_group">
                             <div class="label">Select Date</div>
                             <input type="date" name="bank_transfer_date" id="" class="date">
@@ -103,26 +130,39 @@
                             <div class="label">Date</div>
                             <input type="Date" name="withdrawal_date" id="" placeholder="Select Date">
                         </div>
+                        <div class="form_group">
+                            <div class="label">Account Used</div>
+                            <select name="transaction_account_used" id="" required>
+                                <option value="">--Select Account--</option>
+                                <?php
+                                
+                                $controller =   new TransactionController();
+                                $account_list  =   $controller->getAllAccounts();
+
+                                foreach($account_list as $list)
+                                {
+                                    $name   =   $list['bank_name']." - ".$list['account_title']." - ".$list['account_number'];
+                                    $id   =   $list['account_id'];
+                                    ?>
+                                    <option value="<?php echo $id ?>"><?php echo $name ?></option>
+                                    <?php
+                                }
+
+
+                                ?>
+                            </select>
+                        </div>
                         <div class="form_group amount_group">
                             <div class="label">Amount (Rs.)</div>
                             <div class="amount_field_container input_container">
-                                <input type="number" name="withdrawal_amount" id="" placeholder="Amount (Rs.)">
+                                <input type="number" name="withdrawal_amount[]" id="" placeholder="Amount (Rs.)">
                             </div>
                             <button type="button" class="primary_button button_generator new_details_generator amount_field_generator"><i class="bi bi-plus-lg"></i></button>
                         </div>
                         <div class="details_array">
                             <div class="regenerate_details grid">
                                 <h3 class="title">Details 1</h3>
-                                <div class="form_group">
-                                    <div class="label">Account Used</div>
-                                    <select name="account_used" id="">
-                                        <option value="">--Select Account--</option>
-                                        <option value="1">HBL - Mirza Mohammad Zahid - 0755</option>
-                                        <option value="2">HBL - Hanzala Zahid - 1058</option>
-                                        <option value="3">HBL - Tayyab Zahid - 5003</option>
-                                    </select>
-                                    <a href="./add_account.html" target="_blank" class=" button secondary_button">Add New</a>
-                                </div>
+                            
                                 <div class="form_group">
                                     <div class="label">Amount</div>
                                     <input type="number" name="cash_amount[]" id="" placeholder="Amount (Rs.)">
@@ -170,7 +210,7 @@
                                 </div>
                                 <div class="form_group">
                                     <div class="label">Purpose</div>
-                                    <input type="text" name="withdrawal_purpose" id="" placeholder="Purpose of Transaction">
+                                    <input type="text" name="withdrawal_purpose[]" id="" placeholder="Purpose of Transaction">
                                 </div>
                             </div>
                         </div>

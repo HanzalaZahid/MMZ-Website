@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 21, 2023 at 03:04 PM
+-- Generation Time: Feb 21, 2023 at 04:05 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -20,6 +20,28 @@ SET time_zone = "+00:00";
 --
 -- Database: `mmzinteriors`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `accounts`
+--
+
+CREATE TABLE `accounts` (
+  `account_id` int(11) NOT NULL,
+  `account_title` varchar(59) DEFAULT NULL,
+  `account_bank` int(11) DEFAULT NULL,
+  `account_number` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `accounts`
+--
+
+INSERT INTO `accounts` (`account_id`, `account_title`, `account_bank`, `account_number`) VALUES
+(1, 'MIRZA MUHAMMAD ZAHID', 14, '53587000020755'),
+(2, 'Hanzala Zahid', 14, '535870000615003'),
+(3, 'Tayyab Zahid', 14, '09067900405503');
 
 -- --------------------------------------------------------
 
@@ -441,6 +463,13 @@ INSERT INTO `users` (`user_id`, `user_firstname`, `user_lastname`, `user_email`,
 --
 
 --
+-- Indexes for table `accounts`
+--
+ALTER TABLE `accounts`
+  ADD PRIMARY KEY (`account_id`),
+  ADD KEY `FK_ACCOUNTS_BANKS` (`account_bank`);
+
+--
 -- Indexes for table `banks`
 --
 ALTER TABLE `banks`
@@ -519,6 +548,12 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `accounts`
+--
+ALTER TABLE `accounts`
+  MODIFY `account_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `banks`
 --
 ALTER TABLE `banks`
@@ -575,6 +610,12 @@ ALTER TABLE `users`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `accounts`
+--
+ALTER TABLE `accounts`
+  ADD CONSTRAINT `FK_ACCOUNTS_BANKS` FOREIGN KEY (`account_bank`) REFERENCES `banks` (`bank_id`);
 
 --
 -- Constraints for table `beneficiaries`

@@ -62,7 +62,28 @@ class Transaction{
             echo "UNABLE TO GET DESTINATION ".  $e->getMessage();
         }
     }
-
+    public function getAllAccounts()
+    {
+        try{
+            $query  =   "SELECT * FROM accounts join banks ON accounts.account_bank	=	banks.bank_id";
+            $stmt  =   $this->pdo->prepare($query);
+            $stmt->execute();
+            return($stmt->fetchAll());
+        } catch (PDOException $e){
+            echo "UNABLE TO GET BANK ACCOUNTS ".  $e->getMessage();
+        }
+    }
+    public function getAccount($number)
+    {
+        try{
+            $query  =   "SELECT * FROM accounts WHERE account_number = ?";
+            $stmt  =   $this->pdo->prepare($query);
+            $stmt->execute([$number]);
+            return($stmt->fetch());
+        } catch (PDOException $e){
+            echo "UNABLE TO GET BANK ACCOUNT ".  $e->getMessage();
+        }
+    }
     public function setBeneficiary($data){
         try{
             $this->pdo->beginTransaction();
@@ -85,9 +106,19 @@ class Transaction{
         }
     }
 
+    public function setAccount($data)
+    {
+        try{
+            $query  = "INSERT INTO `accounts`(`account_title`, `account_bank`, `account_number`) VALUES (?, ?, ?)";
+            $stmt   =   $this->pdo->prepare($query);
+            $stmt->execute([$data['account_name'], $data['account_bank'], $data['account_number']]);
+        } catch (PDOException $e){
+            echo "ERROR : ".$e->getMessage();
+        }
+    }
     public function setWithdrawalTransaction($data)
     {
         $this->pdo->beginTransaction();
-        $query  =   "INSERT INTO"
+        $query  =   "INSERT INTO transactions ()";
     }
 }
