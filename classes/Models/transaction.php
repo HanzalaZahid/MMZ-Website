@@ -84,4 +84,10 @@ class Transaction{
             echo "Error: " . $e->getMessage();
         }
     }
+
+    public function setWithdrawalTransaction($data)
+    {
+        $this->pdo->beginTransaction();
+        $query  =   "INSERT INTO"
+    }
 }

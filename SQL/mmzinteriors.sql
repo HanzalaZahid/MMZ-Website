@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 21, 2023 at 12:11 PM
+-- Generation Time: Feb 21, 2023 at 03:04 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -394,7 +394,7 @@ INSERT INTO `provinces` (`province_id`, `province_name`) VALUES
 
 CREATE TABLE `transactions` (
   `transaction_id` int(11) NOT NULL,
-  `transaction_data` date NOT NULL,
+  `transaction_date` date NOT NULL,
   `transaction_amount` decimal(20,2) NOT NULL,
   `transaction_account_used` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -407,7 +407,7 @@ CREATE TABLE `transactions` (
 
 CREATE TABLE `transaction_details` (
   `transaction_detail_id` int(11) NOT NULL,
-  `transaction_detail_beneficairy` int(11) NOT NULL,
+  `transaction_detail_beneficiary` int(11) NOT NULL,
   `transaction_detail_amount` int(11) NOT NULL,
   `transaction_detail_project` int(11) NOT NULL,
   `transaction_detail_catagory` int(11) NOT NULL,
@@ -495,6 +495,20 @@ ALTER TABLE `provinces`
   ADD PRIMARY KEY (`province_id`);
 
 --
+-- Indexes for table `transactions`
+--
+ALTER TABLE `transactions`
+  ADD PRIMARY KEY (`transaction_id`);
+
+--
+-- Indexes for table `transaction_details`
+--
+ALTER TABLE `transaction_details`
+  ADD PRIMARY KEY (`transaction_detail_id`),
+  ADD KEY `FK_TRANSACTION_DETAILS_BENEFICIARIES` (`transaction_detail_beneficiary`),
+  ADD KEY `FK_TRANSACTION_DETAILS_PROJECTS` (`transaction_detail_project`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -547,6 +561,12 @@ ALTER TABLE `provinces`
   MODIFY `province_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
+-- AUTO_INCREMENT for table `transaction_details`
+--
+ALTER TABLE `transaction_details`
+  MODIFY `transaction_detail_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
@@ -581,6 +601,13 @@ ALTER TABLE `employees`
 ALTER TABLE `projects`
   ADD CONSTRAINT `FK_PROJECTS_CITIES` FOREIGN KEY (`project_city`) REFERENCES `cities` (`city_id`),
   ADD CONSTRAINT `FK_PROJECTS_CLIENT` FOREIGN KEY (`project_client`) REFERENCES `clients` (`client_id`);
+
+--
+-- Constraints for table `transaction_details`
+--
+ALTER TABLE `transaction_details`
+  ADD CONSTRAINT `FK_TRANSACTION_DETAILS_BENEFICIARIES` FOREIGN KEY (`transaction_detail_beneficiary`) REFERENCES `beneficiaries` (`beneficiary_id`),
+  ADD CONSTRAINT `FK_TRANSACTION_DETAILS_PROJECTS` FOREIGN KEY (`transaction_detail_project`) REFERENCES `projects` (`project_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

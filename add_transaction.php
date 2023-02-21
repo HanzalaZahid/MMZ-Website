@@ -114,6 +114,16 @@
                             <div class="regenerate_details grid">
                                 <h3 class="title">Details 1</h3>
                                 <div class="form_group">
+                                    <div class="label">Account Used</div>
+                                    <select name="account_used" id="">
+                                        <option value="">--Select Account--</option>
+                                        <option value="1">HBL - Mirza Mohammad Zahid - 0755</option>
+                                        <option value="2">HBL - Hanzala Zahid - 1058</option>
+                                        <option value="3">HBL - Tayyab Zahid - 5003</option>
+                                    </select>
+                                    <a href="./add_account.html" target="_blank" class=" button secondary_button">Add New</a>
+                                </div>
+                                <div class="form_group">
                                     <div class="label">Amount</div>
                                     <input type="number" name="cash_amount[]" id="" placeholder="Amount (Rs.)">
                                 </div>
