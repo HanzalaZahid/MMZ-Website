@@ -18,6 +18,43 @@ class Transaction{
             echo "Unable to get bank list : " . $e->getMessage();
         }
     }
+    public function setBeneficiary($data){
+        try{
+            $this->pdo->beginTransaction();
+            $query  =   "INSERT INTO beneficiaries(`beneficiary_name`, `beneficiary_bank`, `beneficiary_account_number`, `beneficiary_about`) VALUES (?, ?, ?, ?)";
+            $stmt   =   $this->pdo->prepare($query);
+            $stmt->execute([$data['beneficiary_name'], $data['beneficiary_bank'], $data['beneficiary_account_number'], $data['beneficiary_about']]);
+
+            if (isset($data['beneficiary_is_employee']) && $data['beneficiary_is_employee'] ==  1)
+            {
+                $employeeID =   $this->pdo->lastInsertId();
+                $query  =   "INSERT INTO `employees`(`employee_id`, `employee_designation`, `employee_contact`) VALUES (?, ?, ?)";
+                $stmt   =   $this->pdo->prepare($query);
+                $stmt->execute([$employeeID, $data['beneficiary_designation'], $data['beneficiary_mobile']]);
+            }
+
+            $this->pdo->commit();
+        } catch (PDOException $e){
+            $this->pdo->rollBack();
+            echo "Error: " . $e->getMessage();
+        }
+    }
+
+    public function setAccount($data)
+    {
+        try{
+            $query  = "INSERT INTO `accounts`(`account_title`, `account_bank`, `account_number`) VALUES (?, ?, ?)";
+            $stmt   =   $this->pdo->prepare($query);
+            $stmt->execute([$data['account_name'], $data['account_bank'], $data['account_number']]);
+        } catch (PDOException $e){
+            echo "ERROR : ".$e->getMessage();
+        }
+    }
+    public function setWithdrawalTransaction($data)
+    {
+        $this->pdo->beginTransaction();
+        $query  =   "INSERT INTO transactions ()";
+    }
 
     public function setDesgnation($name)
     {
@@ -38,6 +75,17 @@ class Transaction{
             return($stmt->fetch());
         } catch (PDOException $e){
             echo "UNABLE TO GET DESTINATION ".  $e->getMessage();
+        }
+    }
+    public function setTransaction($data)
+    {
+        try{
+            $this->pdo->beginTransaction();
+            $query  =   "INSERT INTO `transactions`(`transaction_date`, `transaction_amount`, `transaction_account_used`, `transaction_type`) VALUES (?,?,?,?)";
+            $stmt   =   $this->pdo->prepare($query);
+            $stmt   =   $stmt->execute([$data['transaction_date'], $data['transaction_amount'], $data['transaction_account_used'],$data['transaction_type']]);
+        } catch(PDOException $e){
+            echo "ERROR: ".$e->getMessage();
         }
     }
     public function getBeneficiaryByAccount($account)
@@ -84,41 +132,15 @@ class Transaction{
             echo "UNABLE TO GET BANK ACCOUNT ".  $e->getMessage();
         }
     }
-    public function setBeneficiary($data){
-        try{
-            $this->pdo->beginTransaction();
-            $query  =   "INSERT INTO beneficiaries(`beneficiary_name`, `beneficiary_bank`, `beneficiary_account_number`, `beneficiary_about`) VALUES (?, ?, ?, ?)";
+    public function getAllBeneficiaries(){
+        try
+        {
+            $query  =   "SELECT * FROM `beneficiaries` LEFT JOIN `employees` ON `beneficiary_id` = `employee_id` LEFT JOIN `banks` ON `beneficiary_bank` = `bank_id` LEFT JOIN `designations` ON `employee_designation` = `designation_id`;";
             $stmt   =   $this->pdo->prepare($query);
-            $stmt->execute([$data['beneficiary_name'], $data['beneficiary_bank'], $data['beneficiary_account_number'], $data['beneficiary_about']]);
-
-            if (isset($data['beneficiary_is_employee']) && $data['beneficiary_is_employee'] ==  1)
-            {
-                $employeeID =   $this->pdo->lastInsertId();
-                $query  =   "INSERT INTO `employees`(`employee_id`, `employee_designation`, `employee_contact`) VALUES (?, ?, ?)";
-                $stmt   =   $this->pdo->prepare($query);
-                $stmt->execute([$employeeID, $data['beneficiary_designation'], $data['beneficiary_mobile']]);
-            }
-
-            $this->pdo->commit();
+            $stmt->execute();
+            return($stmt->fetchAll());
         } catch (PDOException $e){
-            $this->pdo->rollBack();
-            echo "Error: " . $e->getMessage();
+            echo "Can't Fetch Beneficiaires : ".$e->getMessage();
         }
-    }
-
-    public function setAccount($data)
-    {
-        try{
-            $query  = "INSERT INTO `accounts`(`account_title`, `account_bank`, `account_number`) VALUES (?, ?, ?)";
-            $stmt   =   $this->pdo->prepare($query);
-            $stmt->execute([$data['account_name'], $data['account_bank'], $data['account_number']]);
-        } catch (PDOException $e){
-            echo "ERROR : ".$e->getMessage();
-        }
-    }
-    public function setWithdrawalTransaction($data)
-    {
-        $this->pdo->beginTransaction();
-        $query  =   "INSERT INTO transactions ()";
     }
 }

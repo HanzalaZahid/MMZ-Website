@@ -78,4 +78,15 @@ class Project
         }
         
     }
+    public function getAllProjects()
+    {
+        try{
+            $query  =   "SELECT * FROM projects";
+            $stmt   =   $this->pdo->prepare($query);
+            $stmt->execute();
+            return($stmt->fetchAll());
+        } catch(PDOException $e){
+            echo "ERROR : ".$e->getMessage();
+        }
+    }
 }

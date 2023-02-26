@@ -58,7 +58,7 @@ $(document).ready(
 
         // Cloneing Transaction Details Area in Withdrawal Form
         // Cloneing Transaction Details Area in Withdrawal Form
-        let catagoryID = 2;
+        let catagoryID = 1;
         let transactionDetailsGenerator = $('.withdrawal_form .transaction_details_generator');
         transactionDetailsGenerator.click(
             ()=>
@@ -68,21 +68,21 @@ $(document).ready(
                 let clone       = template.clone();
 
                 // title update
-                clone.find("h3").text('Details '+catagoryID);
+                clone.find("h3").text('Details '+(Number(catagoryID)+1));
 
                 // radio name update
                 // clone.find('input[name="withdrawal_transaction_catagory1"]').attr('name',"withdrawal_transaction_catagory"+catagoryID);
-                clone.find('input[name="withdrawal_transaction_catagory[1]"]').attr('name',"withdrawal_transaction_catagory["+catagoryID+"]");
+                clone.find('input[name="withdrawal_transaction_catagory[0]"]').attr('name',"withdrawal_transaction_catagory["+catagoryID+"]");
 
                 // ID's update
-                clone.find('#withdrawal_form_purchase1').attr('id', "withdrawal_form_purchase"+catagoryID);
-                clone.find('label[for="withdrawal_form_purchase1"]').attr('for', "withdrawal_form_purchase"+catagoryID);
-                clone.find('#withdrawal_form_services1').attr('id', "withdrawal_form_services"+catagoryID);
-                clone.find('label[for="withdrawal_form_services1"]').attr('for', "withdrawal_form_services"+catagoryID);
-                clone.find('#withdrawal_form_others1').attr('id', "withdrawal_form_others"+catagoryID);
+                clone.find('#withdrawal_form_purchase0').attr('id', "withdrawal_form_purchase"+catagoryID);
+                clone.find('label[for="withdrawal_form_purchase0"]').attr('for', "withdrawal_form_purchase"+catagoryID);
+                clone.find('#withdrawal_form_services0').attr('id', "withdrawal_form_services"+catagoryID);
+                clone.find('label[for="withdrawal_form_services0"]').attr('for', "withdrawal_form_services"+catagoryID);
+                clone.find('#withdrawal_form_others0').attr('id', "withdrawal_form_others"+catagoryID);
 
                 // // label for Update
-                clone.find('label[for="withdrawal_form_others1"]').attr('for', "withdrawal_form_others"+catagoryID);
+                clone.find('label[for="withdrawal_form_others0"]').attr('for', "withdrawal_form_others"+catagoryID);
 
                 // resetting values
                 clone.find('select option[value=0]').attr('selected','selected');

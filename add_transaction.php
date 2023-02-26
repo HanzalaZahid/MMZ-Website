@@ -1,5 +1,6 @@
 <?php
 require_once "./classes/Controllers/transactionController.php";
+require_once "./classes/Controllers/projectController.php";
 include "./includes/message_helper.inc.php";
 ?>
 
@@ -20,7 +21,7 @@ include "./includes/message_helper.inc.php";
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- SCRIPTS -->
     <script src="./assets/js/behaviour/nav_toggle.js" defer></script>
-    <script src="./assets/js/behaviour/add_transaction.js?version=2" defer></script>
+    <script src="./assets/js/behaviour/add_transaction.js?<?php echo 'v='.time(); ?>" defer></script>
     <script src="./assets/js/behaviour/validateForm.js" defer></script>
     <!-- plugins -->
     <script src="./assets/plugins/jquery-validation/dist/jquery.validate.min.js"></script>
@@ -58,7 +59,7 @@ include "./includes/message_helper.inc.php";
 
                                 foreach($account_list as $list)
                                 {
-                                    $name   =   $list['bank_name']." - ".$list['account_title']." - ".$list['account_number'];
+                                    $name   =   $list['bank_name']." - ".strtoupper($list['account_title'])." - ".$list['account_number'];
                                     $id   =   $list['account_id'];
                                     ?>
                                     <option value="<?php echo $id ?>"><?php echo $name ?></option>
@@ -77,9 +78,18 @@ include "./includes/message_helper.inc.php";
                             <div class="label">Beneficiary Name</div>
                             <select name="bank_transfer_beneficiary" id="">
                                 <option value="">--Select Beneficiary--</option>
-                                <option value="1">Hanzala Zahid</option>
-                                <option value="2">Tayyab Zahid</option>
-                                <option value="3">Ameer Hamza</option>
+                                <?php 
+                                $controller =   new TransactionController();
+                                $beneficiaries_list =   $controller->getAllBeneficiaries();
+
+                                foreach($beneficiaries_list as $list){
+                                    $id     =   $list['beneficiary_id'];
+                                    $name   =   $list['beneficiary_name']." - ".$list['beneficiary_about']." - ".$list['designation_name']." - ".$list['bank_name']." - ".$list['beneficiary_account_number'];
+                                    ?>
+                                    <option value="<?php echo $id ?>"><?php echo $name ?></option>
+                                    <?php
+                                }
+                                ?>
                             </select>
                             <a href="./add_beneficiary.html" target="_blank" class=" button secondary_button">Add New</a>
                         </div>
@@ -91,9 +101,18 @@ include "./includes/message_helper.inc.php";
                             <div class="label">Project Name</div>
                             <select name="bank_transfer_project" id="">
                                 <option value="">--Select Project--</option>
-                                <option value="1">NDURE Rahim Yar Khan</option>
-                                <option value="2">Servis Chishtiyan</option>
-                                <option value="3">NDURE jaranwala</option>
+                                <?php 
+                                $controller =   new ProjectController();
+                                $project_list =   $controller->getProjects();
+
+                                foreach($project_list as $list){
+                                    $id     =   $list['project_id'];
+                                    $name   =   $list['project_name'];
+                                    ?>
+                                    <option value="<?php echo $id ?>"><?php echo $name ?></option>
+                                    <?php
+                                }
+                                ?>
                             </select>
                             <a href="./add_project.html" target="_blank" class=" button secondary_button">Add New</a>
                         </div>
@@ -141,7 +160,7 @@ include "./includes/message_helper.inc.php";
 
                                 foreach($account_list as $list)
                                 {
-                                    $name   =   $list['bank_name']." - ".$list['account_title']." - ".$list['account_number'];
+                                    $name   =   $list['bank_name']." - ".strtoupper($list['account_title'])." - ".$list['account_number'];
                                     $id   =   $list['account_id'];
                                     ?>
                                     <option value="<?php echo $id ?>"><?php echo $name ?></option>
@@ -171,37 +190,55 @@ include "./includes/message_helper.inc.php";
                                     <div class="label">Beneficiary Name</div>
                                     <select name="withdrawal_beneficiary[]" id="">
                                         <option value="">--Select Beneficiary--</option>
-                                        <option value="1">Hanzala Zahid</option>
-                                        <option value="2">Tayyab Zahid</option>
-                                        <option value="3">Ameer Hamza</option>
+                                        <?php 
+                                        $controller =   new TransactionController();
+                                        $beneficiaries_list =   $controller->getAllBeneficiaries();
+
+                                        foreach($beneficiaries_list as $list){
+                                            $id     =   $list['beneficiary_id'];
+                                            $name   =   $list['beneficiary_name']." - ".$list['beneficiary_about']." - ".$list['designation_name']." - ".$list['bank_name']." - ".$list['beneficiary_account_number'];
+                                            ?>
+                                            <option value="<?php echo $id ?>"><?php echo $name ?></option>
+                                            <?php
+                                        }
+                                        ?>
                                     </select>
-                                    <a href="./add_beneficiary.html" target="_blank" class=" button secondary_button">Add New</a>
+                                    <a href="./add_beneficiary.php" target="_blank" class=" button secondary_button">Add New</a>
                                 </div>
                                 <div class="form_group">
                                     <div class="label">Project Name</div>
                                     <select name="withdrawal_project[]" id="">
                                         <option value="0">--Select Project--</option>
-                                        <option value="1">NDURE Rahim Yar Khan</option>
-                                        <option value="2">Servis Chishtiyan</option>
-                                        <option value="3">NDURE jaranwala</option>
+                                        <?php 
+                                        $controller =   new ProjectController();
+                                        $project_list =   $controller->getProjects();
+
+                                        foreach($project_list as $list){
+                                            $id     =   $list['project_id'];
+                                            $name   =   $list['project_name'];
+                                            ?>
+                                            <option value="<?php echo $id ?>"><?php echo $name ?></option>
+                                            <?php
+                                        }
+                                        ?>
                                     </select>
-                                    <a href="./add_project.html" target="_blank" class=" button secondary_button">Add New</a>
+                                    <a href="./add_project.php" target="_blank" class=" button secondary_button">Add New</a>
                                 </div>
                                 <div class="form_group">
                                     <div class="label">Catagory</div>
                                     <div class="catagory_group">
-                                        <input type="radio" name="withdrawal_transaction_catagory[1]" value="purchase" id="withdrawal_form_purchase1" class="catagory">
-                                        <label class="radio_button" for="withdrawal_form_purchase1">
+                                        <input type="radio" name="withdrawal_transaction_catagory[0]" value="purchase" id="withdrawal_form_purchase0" class="catagory">
+                                        <label class="radio_button" for="withdrawal_form_purchase0">
                                             <i class="bi bi-cart"></i>
                                             <span>Purchase</span>
                                         </label>
-                                        <input type="radio" name="withdrawal_transaction_catagory[1]" value="service" id="withdrawal_form_services1" class="catagory">
-                                        <label class="radio_button" for="withdrawal_form_services1">
+                                        <input type="radio" name="withdrawal_transaction_catagory[0]" value="service" id="withdrawal_form_services0" class="catagory">
+                                        <label class="radio_button" for="withdrawal_form_services0">
                                             <i class="bi bi-tools"></i>
                                             <span>Service</span>
                                         </label>
-                                        <input type="radio" checked name="withdrawal_transaction_catagory[1]" value="others" id="withdrawal_form_others1" class="catagory other_radio">
-                                        <label class="radio_button" for="withdrawal_form_others1">
+                                        <input type="radio" checked name="withdrawal_transaction_catagory[0]" value="others" id="withdrawal_form_others0" class="catagory other_radio">
+                                        <label class="radio_button" for="withdrawal_form_others0">
                                             <i class="bi bi-asterisk"></i>
                                             <span>Others</span>
                                         </label>

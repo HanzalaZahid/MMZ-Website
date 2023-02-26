@@ -26,6 +26,10 @@ class TransactionController{
             header('Location: ../../add_designation.php?message=designation_already_exixts');
         }
     }
+    public function getAllBeneficiaries()
+    {
+        return ($this->model->getAllBeneficiaries());
+    }
     public function getAllDesignations()
     {
         return ($this->model->getAllDesgnations());
@@ -122,6 +126,12 @@ if (isset($_POST['add_beneficiary_submit'])){
 
 
 if (isset($_POST['withdrawal_submit'])){
+    $data   =   $_POST;
+    print_r($data);
+    $controller =   new TransactionController();
+
+}
+if (isset($_POST['bank_transfer_submit'])){
     $data   =   $_POST;
     print_r($data);
     $controller =   new TransactionController();

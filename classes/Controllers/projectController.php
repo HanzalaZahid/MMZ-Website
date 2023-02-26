@@ -69,6 +69,11 @@ class ProjectController{
         $result =   $this->model->getProvinces();
         return $result;
     }
+    public function getProjects()
+    {
+        $result =   $this->model->getAllProjects();
+        return $result;
+    }
 }
 
 
