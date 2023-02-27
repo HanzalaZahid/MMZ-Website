@@ -177,7 +177,7 @@ include "./includes/message_helper.inc.php";
                         <div class="form_group amount_group">
                             <div class="label">Amount (Rs.)</div>
                             <div class="amount_field_container input_container">
-                                <input type="number" name="withdrawal_amount[]" id="" placeholder="Amount (Rs.)">
+                                <input type="number" required name="withdrawal_amount[]" id="" placeholder="Amount (Rs.)">
                             </div>
                             <button type="button" class="primary_button button_generator new_details_generator amount_field_generator"><i class="bi bi-plus-lg"></i></button>
                         </div>
@@ -187,7 +187,7 @@ include "./includes/message_helper.inc.php";
                             
                                 <div class="form_group">
                                     <div class="label">Amount</div>
-                                    <input type="number" name="cash_amount[]" id="" placeholder="Amount (Rs.)">
+                                    <input type="number" name="cash_amount[]" id="" placeholder="Amount (Rs.)" required>
                                 </div>
                                 <div class="form_group">
                                     <div class="label">Beneficiary Name</div>

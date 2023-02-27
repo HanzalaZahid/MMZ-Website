@@ -77,6 +77,35 @@ class Transaction{
             echo "UNABLE TO GET DESTINATION ".  $e->getMessage();
         }
     }
+    public function setTransactionWithdrawal($data)
+    {
+        try{
+            $query  =   "SELECT MAX(transaction_cluster) from transactions";
+            $stmt   =   $this->pdo->prepare($query);
+            $stmt->execute();
+            $cluster_number =   $stmt->fetch();
+            if ($cluster_number ==  0){
+                $cluster_number =   1;
+            }
+
+            $this->pdo->beginTransaction();
+            foreach($data['transaction_amount'] as $transaction_amount){
+                $query  =   "INSERT INTO `transactions`(`transaction_date`, `transaction_amount`, `transaction_account_used`, `transaction_type`, `transaction_cluster`) VALUES (?,?,?,?<?)";
+                $stmt   =   $this->pdo->prepare($query);
+                $stmt   =   $stmt->execute([$data['transaction_date'], $transaction_amount, $data['transaction_account_used'],"withdrawal", $cluster_number]);
+            }
+            
+            $transaction_id =   $this->pdo->lastInsertId();
+            foreach($data['cash_amount'] as $cashamount)
+            $query  =   "INSERT INTO `transaction_details`(`transaction_detail_beneficiary`, `transaction_detail_amount`, `transaction_detail_project`, `transaction_detail_catagory`, `transaction_detail_purpose`, `transaction_id`) VALUES (?,?,?,?,?,?)";
+            $stmt   =   $this->pdo->prepare($query);
+            $stmt   =   $stmt->execute([$data['transaction_beneficiary'], $cashamount, $data['transaction_project'],$data['transaction_catagory'],$data['transaction_purpose'], $transaction_id]);
+            
+            $this->pdo->commit();
+        } catch(PDOException $e){
+            echo "ERROR: ".$e->getMessage();
+        }
+    }
     public function setTransactionOnline($data)
     {
         try{

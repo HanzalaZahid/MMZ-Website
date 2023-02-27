@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 27, 2023 at 11:49 AM
+-- Generation Time: Feb 27, 2023 at 03:29 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -419,19 +419,20 @@ CREATE TABLE `transactions` (
   `transaction_date` date NOT NULL,
   `transaction_amount` decimal(20,2) NOT NULL,
   `transaction_account_used` int(11) NOT NULL,
-  `transaction_type` varchar(12) NOT NULL
+  `transaction_type` varchar(12) NOT NULL,
+  `transaction_cluster` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `transactions`
 --
 
-INSERT INTO `transactions` (`transaction_id`, `transaction_date`, `transaction_amount`, `transaction_account_used`, `transaction_type`) VALUES
-(2, '2023-04-05', '50000.00', 1, 'ONLINE'),
-(3, '2023-04-05', '50000.00', 1, 'ONLINE'),
-(4, '2023-04-05', '50000.00', 1, 'ONLINE'),
-(5, '2023-04-05', '50000.00', 1, 'ONLINE'),
-(7, '0231-12-05', '9.00', 2, 'ONLINE');
+INSERT INTO `transactions` (`transaction_id`, `transaction_date`, `transaction_amount`, `transaction_account_used`, `transaction_type`, `transaction_cluster`) VALUES
+(2, '2023-04-05', '50000.00', 1, 'ONLINE', 0),
+(3, '2023-04-05', '50000.00', 1, 'ONLINE', 0),
+(4, '2023-04-05', '50000.00', 1, 'ONLINE', 0),
+(5, '2023-04-05', '50000.00', 1, 'ONLINE', 0),
+(7, '0231-12-05', '9.00', 2, 'ONLINE', 0);
 
 -- --------------------------------------------------------
 

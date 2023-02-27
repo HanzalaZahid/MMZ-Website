@@ -41,6 +41,11 @@ class TransactionController{
             header('Location: ../../add_designation.php?message=designation_already_exixts');
         }
     }
+    public function insertTransactionWithdrawal($data){
+        $this->model->setTransactionWithdrawal($data);
+        header('Location: ../../add_transaction.php?message=success');
+
+    }
     public function insertTransactionOnline($data){
         $this->model->setTransactionOnline($data);
         header('Location: ../../add_transaction.php?message=success');
@@ -147,8 +152,9 @@ if (isset($_POST['add_beneficiary_submit'])){
 
 if (isset($_POST['withdrawal_submit'])){
     $data   =   $_POST;
-    print_r($data);
+    var_export($data);
     $controller =   new TransactionController();
+    // $controller->insertTransactionWithdrawal($data);
 
 }
 if (isset($_POST['bank_transfer_submit'])){
