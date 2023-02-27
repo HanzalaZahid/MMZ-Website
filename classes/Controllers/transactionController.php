@@ -15,6 +15,21 @@ class TransactionController{
 
     }
 
+    public function insertTransactionCategory($data)
+    {
+        if (!$this->empty($data['category_name']) && !$this->empty($data['category_icon'])){
+            if (!$this->model->getTransactionCatagory($data['category_name']))
+            {
+                $this->model->setTransactionCatagory($data);
+                header('Location: ../../add_transaction_category.php?message=success');
+            } else {
+                
+                header('Location: ../../add_transaction_category.php?message=designation_already_exixts');
+            }
+        } else{
+            header('Location: ../../add_transaction_category.php?message=incomplete_data');
+        }
+    }
     public function insertDesignation($name)
     {
         if (!$this->model->getDesgnation($name))
@@ -25,6 +40,11 @@ class TransactionController{
             
             header('Location: ../../add_designation.php?message=designation_already_exixts');
         }
+    }
+    public function insertTransactionOnline($data){
+        $this->model->setTransactionOnline($data);
+        header('Location: ../../add_transaction.php?message=success');
+
     }
     public function getAllBeneficiaries()
     {
@@ -132,9 +152,19 @@ if (isset($_POST['withdrawal_submit'])){
 
 }
 if (isset($_POST['bank_transfer_submit'])){
-    $data   =   $_POST;
-    print_r($data);
+    $data   =   [
+        'transaction_date'  =>   $_POST['transaction_date'],
+        'transaction_amount'  =>   $_POST['transaction_amount'],
+        'transaction_account_used'  =>   $_POST['transaction_account_used'],
+        'transaction_type'  =>   "ONLINE",
+        'transaction_beneficiary'  =>   $_POST['transaction_beneficiary'],
+        'transaction_project'  =>   $_POST['transaction_project'],
+        'transaction_catagory'  =>   $_POST['transaction_catagory'],
+        'transaction_purpose'  =>   $_POST['transaction_purpose']
+    ];
+    print_r($_POST);
     $controller =   new TransactionController();
+    $controller->insertTransactionOnline($data);
 
 }
 
@@ -148,4 +178,14 @@ if (isset($_POST['bank_account_submit'])){
     var_dump($data);
     $controller =   new TransactionController();
     $controller->addAccount($data);
+}
+
+
+if (isset($_POST['transaction_category_submit'])){
+    $data=  [
+        'category_name' => $_POST['transaction_category_name'],
+        'category_icon' => $_POST['transaction_category_icon']
+    ];
+    $controller =   new TransactionController();
+    $controller->insertTransactionCategory($data);
 }

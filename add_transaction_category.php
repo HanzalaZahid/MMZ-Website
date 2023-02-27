@@ -1,10 +1,13 @@
+<?php
+    include "./includes/message_helper.inc.php";
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Project</title>
+    <title>Add Transaction Category</title>
     <!-- STYLESHEETS -->
     <link rel="stylesheet" href="./assets/css/style.css">
     <link rel="stylesheet" href="./assets/css/header_nav.css">
@@ -27,21 +30,24 @@
         <div class="main_container">
             <div class="card">
                 <div class="head">
-                    <h2 class="titile">Add Transaction Catagory</h2>
+                    <h2 class="titile">Add Transaction Category</h2>
                 </div>
                 <div class="wrapper">
-                    <form action="" class="add_transaction_catagory_form grid">
+                    <form action="./classes/Controllers/transactionController.php" method="post" class="add_transaction_catagory_form grid">
                         <div class="form_group">
-                            <div class="label">Catagory Name</div>
-                            <input type="text" name="transaction_catagory_name" placeholder="Transaction Cata Name">
+                            <div class="label">Category Name</div>
+                            <input type="text" name="transaction_category_name" placeholder="Transaction Cata Name" required>
                         </div>
                         <div class="form_group icon_group">
-                            <div class="label">Catagory Icon</div>
-                            <input type="text" name="transaction_catagory_icon" class="transaction_catagory_icon" placeholder="Catagory Icon &lt;i&gt; Tag">
+                            <div class="label">Category Icon</div>
+                            <input type="text" name="transaction_category_icon" class="transaction_catagory_icon" required placeholder="Catagory Icon &lt;i&gt; Tag">
                             <div class="icon"></div>
                         </div>
                         <div class="form_group">
-                            <input type="submit" class="primary_button" value="Add Transaction Catagory">
+                            <p class="php_form_error"><?php echo $message ?></p>
+                        </div>
+                        <div class="form_group">
+                            <input type="submit" class="primary_button" name="transaction_category_submit" value="Add Transaction Catagory">
                         </div>
                     </form>
                 </div>

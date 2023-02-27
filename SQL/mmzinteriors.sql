@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 21, 2023 at 04:05 PM
+-- Generation Time: Feb 27, 2023 at 11:49 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -418,7 +418,31 @@ CREATE TABLE `transactions` (
   `transaction_id` int(11) NOT NULL,
   `transaction_date` date NOT NULL,
   `transaction_amount` decimal(20,2) NOT NULL,
-  `transaction_account_used` int(11) NOT NULL
+  `transaction_account_used` int(11) NOT NULL,
+  `transaction_type` varchar(12) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `transactions`
+--
+
+INSERT INTO `transactions` (`transaction_id`, `transaction_date`, `transaction_amount`, `transaction_account_used`, `transaction_type`) VALUES
+(2, '2023-04-05', '50000.00', 1, 'ONLINE'),
+(3, '2023-04-05', '50000.00', 1, 'ONLINE'),
+(4, '2023-04-05', '50000.00', 1, 'ONLINE'),
+(5, '2023-04-05', '50000.00', 1, 'ONLINE'),
+(7, '0231-12-05', '9.00', 2, 'ONLINE');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `transaction_categories`
+--
+
+CREATE TABLE `transaction_categories` (
+  `transaction_category_id` int(11) NOT NULL,
+  `transaction_category_name` varchar(22) DEFAULT NULL,
+  `transaction_category_icon` varchar(60) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -432,9 +456,21 @@ CREATE TABLE `transaction_details` (
   `transaction_detail_beneficiary` int(11) NOT NULL,
   `transaction_detail_amount` int(11) NOT NULL,
   `transaction_detail_project` int(11) NOT NULL,
-  `transaction_detail_catagory` int(11) NOT NULL,
-  `transaction_detail_purpose` varchar(400) NOT NULL
+  `transaction_detail_catagory` varchar(22) NOT NULL,
+  `transaction_detail_purpose` varchar(400) NOT NULL,
+  `transaction_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `transaction_details`
+--
+
+INSERT INTO `transaction_details` (`transaction_detail_id`, `transaction_detail_beneficiary`, `transaction_detail_amount`, `transaction_detail_project`, `transaction_detail_catagory`, `transaction_detail_purpose`, `transaction_id`) VALUES
+(4, 6, 50000, 3, '0', 'TEST TRANSACTIOn', 2),
+(5, 6, 50000, 3, '0', 'TEST TRANSACTIOn', 3),
+(6, 6, 50000, 3, '0', 'TEST TRANSACTIOn', 4),
+(7, 6, 50000, 3, '0', 'TEST TRANSACTIOn', 5),
+(9, 6, 9, 1, 'service', 'TEST TRANSACTIOn', 7);
 
 -- --------------------------------------------------------
 
@@ -530,12 +566,19 @@ ALTER TABLE `transactions`
   ADD PRIMARY KEY (`transaction_id`);
 
 --
+-- Indexes for table `transaction_categories`
+--
+ALTER TABLE `transaction_categories`
+  ADD PRIMARY KEY (`transaction_category_id`);
+
+--
 -- Indexes for table `transaction_details`
 --
 ALTER TABLE `transaction_details`
   ADD PRIMARY KEY (`transaction_detail_id`),
   ADD KEY `FK_TRANSACTION_DETAILS_BENEFICIARIES` (`transaction_detail_beneficiary`),
-  ADD KEY `FK_TRANSACTION_DETAILS_PROJECTS` (`transaction_detail_project`);
+  ADD KEY `FK_TRANSACTION_DETAILS_PROJECTS` (`transaction_detail_project`),
+  ADD KEY `TRANSACTION_DETAILS_TRANSACTIONS` (`transaction_id`);
 
 --
 -- Indexes for table `users`
@@ -596,10 +639,22 @@ ALTER TABLE `provinces`
   MODIFY `province_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
+-- AUTO_INCREMENT for table `transactions`
+--
+ALTER TABLE `transactions`
+  MODIFY `transaction_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `transaction_categories`
+--
+ALTER TABLE `transaction_categories`
+  MODIFY `transaction_category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `transaction_details`
 --
 ALTER TABLE `transaction_details`
-  MODIFY `transaction_detail_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `transaction_detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -648,7 +703,8 @@ ALTER TABLE `projects`
 --
 ALTER TABLE `transaction_details`
   ADD CONSTRAINT `FK_TRANSACTION_DETAILS_BENEFICIARIES` FOREIGN KEY (`transaction_detail_beneficiary`) REFERENCES `beneficiaries` (`beneficiary_id`),
-  ADD CONSTRAINT `FK_TRANSACTION_DETAILS_PROJECTS` FOREIGN KEY (`transaction_detail_project`) REFERENCES `projects` (`project_id`);
+  ADD CONSTRAINT `FK_TRANSACTION_DETAILS_PROJECTS` FOREIGN KEY (`transaction_detail_project`) REFERENCES `projects` (`project_id`),
+  ADD CONSTRAINT `TRANSACTION_DETAILS_TRANSACTIONS` FOREIGN KEY (`transaction_id`) REFERENCES `transactions` (`transaction_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -72,11 +72,11 @@ include "./includes/message_helper.inc.php";
                         </div>
                         <div class="form_group">
                             <div class="label">Select Date</div>
-                            <input type="date" name="bank_transfer_date" id="" class="date">
+                            <input type="date" name="transaction_date" id="" class="date">
                         </div>
                         <div class="form_group">
                             <div class="label">Beneficiary Name</div>
-                            <select name="bank_transfer_beneficiary" id="">
+                            <select name="transaction_beneficiary" id="">
                                 <option value="">--Select Beneficiary--</option>
                                 <?php 
                                 $controller =   new TransactionController();
@@ -95,11 +95,11 @@ include "./includes/message_helper.inc.php";
                         </div>
                         <div class="form_group">
                             <div class="label">Amount (Rs.)</div>
-                            <input type="number" name="bank_transfer_amount" id="" class="amount" placeholder="Amount (Rs.)">
+                            <input type="number" name="transaction_amount"  id="" class="transaction_amount" placeholder="Amount (Rs.)">
                         </div>
                         <div class="form_group">
                             <div class="label">Project Name</div>
-                            <select name="bank_transfer_project" id="">
+                            <select name="transaction_project" id="">
                                 <option value="">--Select Project--</option>
                                 <?php 
                                 $controller =   new ProjectController();
@@ -119,12 +119,12 @@ include "./includes/message_helper.inc.php";
                         <div class="form_group">
                             <div class="label">Catagory</div>
                             <div class="catagory_group">
-                                <input type="radio" name="transaction_catagory" id="bank_transfer_purchase" class="catagory">
+                                <input type="radio" value="purchase" name="transaction_catagory" id="bank_transfer_purchase" class="catagory">
                             <label class="radio_button" for="bank_transfer_purchase">
                                 <i class="bi bi-cart"></i>
                                 <span>Purchase</span>
                             </label>
-                            <input type="radio" name="transaction_catagory" id="bank_transfer_services" class="catagory">
+                            <input type="radio" value="service" name="transaction_catagory" id="bank_transfer_services" class="catagory">
                             <label class="radio_button"for="bank_transfer_services">
                                 <i class="bi bi-tools"></i>
                                 <span>Service</span>
@@ -138,7 +138,10 @@ include "./includes/message_helper.inc.php";
                         </div>
                         <div class="form_group">
                             <div class="label">Purpose</div>
-                            <input type="text" name="bank_transfer_purpose" id="" placeholder="Purpose of Transaction">
+                            <input type="text" name="transaction_purpose" id="" placeholder="Purpose of Transaction">
+                        </div>
+                        <div class="form_group">
+                            <p class="php_form_error"><?php echo $message ?></p>
                         </div>
                         <div class="form_group">
                             <input class="primary_button" name="bank_transfer_submit" type="submit" value="Add Transaction">
@@ -147,7 +150,7 @@ include "./includes/message_helper.inc.php";
                     <form action="./classes/controllers/transactionController.php" method="post" class="add_transaction_form withdrawal_form hidden grid">
                         <div class="form_group">
                             <div class="label">Date</div>
-                            <input type="Date" name="withdrawal_date" id="" placeholder="Select Date">
+                            <input type="Date" name="transaction_date" id="" placeholder="Select Date">
                         </div>
                         <div class="form_group">
                             <div class="label">Account Used</div>
@@ -254,6 +257,9 @@ include "./includes/message_helper.inc.php";
                         <div class="form_group">
                             <div class="label"></div>
                             <button type="button" class="primary_button button_generator new_details_generator transaction_details_generator"><i class="bi bi-plus-lg"></i></button>
+                        </div>
+                        <div class="form_group">
+                            <p class="php_form_error"><?php echo $message ?></p>
                         </div>
                         <div class="form_group">
                             <input name="withdrawal_submit" class="primary_button" type="submit" value="Add Transaction">

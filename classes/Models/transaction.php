@@ -77,13 +77,21 @@ class Transaction{
             echo "UNABLE TO GET DESTINATION ".  $e->getMessage();
         }
     }
-    public function setTransaction($data)
+    public function setTransactionOnline($data)
     {
         try{
             $this->pdo->beginTransaction();
+            
             $query  =   "INSERT INTO `transactions`(`transaction_date`, `transaction_amount`, `transaction_account_used`, `transaction_type`) VALUES (?,?,?,?)";
             $stmt   =   $this->pdo->prepare($query);
             $stmt   =   $stmt->execute([$data['transaction_date'], $data['transaction_amount'], $data['transaction_account_used'],$data['transaction_type']]);
+            
+            $transaction_id =   $this->pdo->lastInsertId();
+            $query  =   "INSERT INTO `transaction_details`(`transaction_detail_beneficiary`, `transaction_detail_amount`, `transaction_detail_project`, `transaction_detail_catagory`, `transaction_detail_purpose`, `transaction_id`) VALUES (?,?,?,?,?,?)";
+            $stmt   =   $this->pdo->prepare($query);
+            $stmt   =   $stmt->execute([$data['transaction_beneficiary'], $data['transaction_amount'], $data['transaction_project'],$data['transaction_catagory'],$data['transaction_purpose'], $transaction_id]);
+            
+            $this->pdo->commit();
         } catch(PDOException $e){
             echo "ERROR: ".$e->getMessage();
         }
@@ -97,6 +105,26 @@ class Transaction{
             return($stmt->fetch());
         } catch (PDOException $e){
             echo "UNABLE TO GET BENEFICIARY ".  $e->getMessage();
+        }
+    }
+    public function setTransactionCatagory($data){
+        try{
+            $query  =   "INSERT INTO `transaction_categories`(`transaction_category_name`, `transaction_category_icon`) VALUES (?,?)";
+        $stmt   =   $this->pdo->prepare($query);
+        $stmt->execute([$data['category_name'], $data['category_icon']]);
+        
+        } catch (PDOException $e){
+            echo "ERROR : ".$e->getMessage();
+        }
+    }
+    public function getTransactionCatagory($name){
+        try{
+            $query  =   "SELECT * FROM transaction_categories where transaction_category_name   =   ?";
+            $stmt   =   $this->pdo->prepare($query);
+            $stmt->execute([$name]);
+            return ($stmt->fetchAll());
+        } catch (PDOException $e){
+            echo "ERROR : ".$e->getMessage();
         }
     }
     public function getAllDesgnations()
