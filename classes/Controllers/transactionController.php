@@ -48,7 +48,7 @@ class TransactionController{
     }
     public function insertTransactionOnline($data){
         $this->model->setTransactionOnline($data);
-        header('Location: ../../add_transaction.php?message=success');
+        // header('Location: ../../add_transaction.php?message=success');
 
     }
     public function getAllBeneficiaries()
@@ -152,9 +152,9 @@ if (isset($_POST['add_beneficiary_submit'])){
 
 if (isset($_POST['withdrawal_submit'])){
     $data   =   $_POST;
-    var_export($data);
+    // var_export($data);
     $controller =   new TransactionController();
-    // $controller->insertTransactionWithdrawal($data);
+    $controller->insertTransactionWithdrawal($data);
 
 }
 if (isset($_POST['bank_transfer_submit'])){

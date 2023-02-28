@@ -83,25 +83,27 @@ class Transaction{
             $query  =   "SELECT MAX(transaction_cluster) from transactions";
             $stmt   =   $this->pdo->prepare($query);
             $stmt->execute();
-            $cluster_number =   $stmt->fetch();
-            if ($cluster_number ==  0){
-                $cluster_number =   1;
-            }
+            $cluster_number =   $stmt->fetchColumn();
+            $cluster_number++;
 
             $this->pdo->beginTransaction();
-            foreach($data['transaction_amount'] as $transaction_amount){
-                $query  =   "INSERT INTO `transactions`(`transaction_date`, `transaction_amount`, `transaction_account_used`, `transaction_type`, `transaction_cluster`) VALUES (?,?,?,?<?)";
+            var_dump($data);
+            foreach($data['withdrawal_amount'] as $transaction_amount){
+                $query  =   "INSERT INTO `transactions`(`transaction_date`, `transaction_amount`, `transaction_account_used`, `transaction_type`, `transaction_cluster`) VALUES (?,?,?,?,?)";
                 $stmt   =   $this->pdo->prepare($query);
-                $stmt   =   $stmt->execute([$data['transaction_date'], $transaction_amount, $data['transaction_account_used'],"withdrawal", $cluster_number]);
+                $stmt   =   $stmt->execute([$data['transaction_date'], $transaction_amount, $data['transaction_account_used'],"WITHDRAWAL", $cluster_number]);
+            }
+            $index  =   0;
+            $transaction_id =   $this->pdo->lastInsertId();
+            foreach($data['cash_amount'] as $cashamount){
+                $query  =   "INSERT INTO `transaction_details`(`transaction_detail_beneficiary`, `transaction_detail_amount`, `transaction_detail_project`, `transaction_detail_catagory`, `transaction_detail_purpose`, `transaction_cluster`) VALUES (?,?,?,?,?,?)";
+                $stmt   =   $this->pdo->prepare($query);
+                $stmt   =   $stmt->execute([$data['withdrawal_beneficiary'][$index], $cashamount, $data['withdrawal_project'][$index],$data['withdrawal_transaction_catagory'][$index],$data['withdrawal_purpose'][$index], $cluster_number]);
+                $index++;
             }
             
-            $transaction_id =   $this->pdo->lastInsertId();
-            foreach($data['cash_amount'] as $cashamount)
-            $query  =   "INSERT INTO `transaction_details`(`transaction_detail_beneficiary`, `transaction_detail_amount`, `transaction_detail_project`, `transaction_detail_catagory`, `transaction_detail_purpose`, `transaction_id`) VALUES (?,?,?,?,?,?)";
-            $stmt   =   $this->pdo->prepare($query);
-            $stmt   =   $stmt->execute([$data['transaction_beneficiary'], $cashamount, $data['transaction_project'],$data['transaction_catagory'],$data['transaction_purpose'], $transaction_id]);
-            
             $this->pdo->commit();
+            $index  =   0;
         } catch(PDOException $e){
             echo "ERROR: ".$e->getMessage();
         }
@@ -109,16 +111,21 @@ class Transaction{
     public function setTransactionOnline($data)
     {
         try{
+            $query  =   "SELECT MAX(transaction_cluster) from transactions";
+            $stmt   =   $this->pdo->prepare($query);
+            $stmt->execute();
+            $cluster_number =   $stmt->fetchColumn();
+            $cluster_number++;
             $this->pdo->beginTransaction();
             
-            $query  =   "INSERT INTO `transactions`(`transaction_date`, `transaction_amount`, `transaction_account_used`, `transaction_type`) VALUES (?,?,?,?)";
+            $query  =   "INSERT INTO `transactions`(`transaction_date`, `transaction_amount`, `transaction_account_used`, `transaction_type`, `transaction_cluster`) VALUES (?,?,?,?,?)";
             $stmt   =   $this->pdo->prepare($query);
-            $stmt   =   $stmt->execute([$data['transaction_date'], $data['transaction_amount'], $data['transaction_account_used'],$data['transaction_type']]);
+            $stmt   =   $stmt->execute([$data['transaction_date'], $data['transaction_amount'], $data['transaction_account_used'],$data['transaction_type'],$cluster_number]);
             
             $transaction_id =   $this->pdo->lastInsertId();
-            $query  =   "INSERT INTO `transaction_details`(`transaction_detail_beneficiary`, `transaction_detail_amount`, `transaction_detail_project`, `transaction_detail_catagory`, `transaction_detail_purpose`, `transaction_id`) VALUES (?,?,?,?,?,?)";
+            $query  =   "INSERT INTO `transaction_details`(`transaction_detail_beneficiary`, `transaction_detail_amount`, `transaction_detail_project`, `transaction_detail_catagory`, `transaction_detail_purpose`, `transaction_cluster`) VALUES (?,?,?,?,?,?)";
             $stmt   =   $this->pdo->prepare($query);
-            $stmt   =   $stmt->execute([$data['transaction_beneficiary'], $data['transaction_amount'], $data['transaction_project'],$data['transaction_catagory'],$data['transaction_purpose'], $transaction_id]);
+            $stmt   =   $stmt->execute([$data['transaction_beneficiary'], $data['transaction_amount'], $data['transaction_project'],$data['transaction_catagory'],$data['transaction_purpose'], $cluster_number]);
             
             $this->pdo->commit();
         } catch(PDOException $e){
