@@ -48,7 +48,7 @@ class TransactionController{
     }
     public function insertTransactionOnline($data){
         $this->model->setTransactionOnline($data);
-        // header('Location: ../../add_transaction.php?message=success');
+        header('Location: ../../add_transaction.php?message=success');
 
     }
     public function getAllBeneficiaries()
@@ -59,16 +59,19 @@ class TransactionController{
     {
         return ($this->model->getAllDesgnations());
     }
+    public function getAllEmployees()
+    {
+        return ($this->model->getAllEmployees());
+    }
 
     public function insertBeneficairy($data){
         
         if (!$this->empty($data['beneficiary_name']) && !$this->empty($data['beneficiary_bank']) && !$this->empty($data['beneficiary_account_number'])){
+            $beneficiary    =   $this->model->getBeneficiaryByAccount($data['beneficiary_account_number']);
             
-            
-
-            if ($this->model->getBeneficiaryByAccount($data['beneficiary_account_number'])){
+            if ($beneficiary['beneficiary_account_number'] == $data['beneficiary_account_number'] && $data['beneficiary_account_number']    !=  "N/A"){
                 echo "IM HERE";
-                header('Location: ../../add_beneficiary.php?message=beneficiary_already_exixts');
+                // header('Location: ../../add_beneficiary.php?message=beneficiary_already_exixts');
                 exit();
             }else{
                 if (isset($data['beneficiary_is_employee']) && $data['beneficiary_is_employee'] ==  1){
@@ -133,6 +136,14 @@ if (isset($_POST['add_beneficiary_submit'])){
         $beneficiary_checkbox   =   1;
     } else{
         $beneficiary_checkbox   =   0;
+    }
+    if($_POST['account_number'] == '')
+    {
+        $_POST['account_number']    =   'N/A';
+    }
+    if($_POST['beneficiary_about'] == '')
+    {
+        $_POST['beneficiary_about']    =   'N/A';
     }
     $data   =   [
         'beneficiary_name'              => $_POST['beneficiary_name'],

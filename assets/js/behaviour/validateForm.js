@@ -44,7 +44,7 @@ $('.add_beneficiary_form').validate(
             },
             pakistan_bank_list:
             {
-                required: true,
+                // required: true,
             },
             account_number:
             {

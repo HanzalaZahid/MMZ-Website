@@ -59,7 +59,7 @@ include "./includes/message_helper.inc.php";
 
                                 foreach($account_list as $list)
                                 {
-                                    $name   =   $list['bank_name']." - ".strtoupper($list['account_title'])." - ".$list['account_number'];
+                                    $name   =  strtoupper($list['account_title'])." - ".$list['bank_name']." - ".$list['account_number'];
                                     $id   =   $list['account_id'];
                                     ?>
                                     <option value="<?php echo $id ?>"><?php echo $name ?></option>
@@ -69,6 +69,8 @@ include "./includes/message_helper.inc.php";
 
                                 ?>
                             </select>
+                            <a href="./add_account.php" target="_blank" class=" button secondary_button">Add New</a>
+
                         </div>
                         <div class="form_group">
                             <div class="label">Select Date</div>
@@ -84,14 +86,24 @@ include "./includes/message_helper.inc.php";
 
                                 foreach($beneficiaries_list as $list){
                                     $id     =   $list['beneficiary_id'];
-                                    $name   =   $list['beneficiary_name']." - ".$list['beneficiary_about']." - ".$list['designation_name']." - ".$list['bank_name']." - ".$list['beneficiary_account_number'];
+                                    $name   =   strtoupper($list['beneficiary_name']);
+                                    if ($list['beneficiary_about']  !=  "N/A"){
+                                        $name   =   $name." - ".$list['beneficiary_about'];
+                                    }
+                                    if ($list['designation_name']  !=  "N/A"){
+                                        $name   =   $name." - ".$list['designation_name'];
+                                    }
+                                        $name   =   $name." - ".$list['bank_name'];
+                                    if ($list['beneficiary_account_number']  !=  "N/A"){
+                                        $name   =   $name." - ".$list['beneficiary_account_number'];
+                                    }
                                     ?>
                                     <option value="<?php echo $id ?>"><?php echo $name ?></option>
                                     <?php
                                 }
                                 ?>
                             </select>
-                            <a href="./add_beneficiary.html" target="_blank" class=" button secondary_button">Add New</a>
+                            <a href="./add_beneficiary.php" target="_blank" class=" button secondary_button">Add New</a>
                         </div>
                         <div class="form_group">
                             <div class="label">Amount (Rs.)</div>
@@ -99,7 +111,7 @@ include "./includes/message_helper.inc.php";
                         </div>
                         <div class="form_group">
                             <div class="label">Project Name</div>
-                            <select name="transaction_project" id="">
+                            <select name="transaction_project" id="" required>
                                 <option value="">--Select Project--</option>
                                 <?php 
                                 $controller =   new ProjectController();
@@ -114,7 +126,7 @@ include "./includes/message_helper.inc.php";
                                 }
                                 ?>
                             </select>
-                            <a href="./add_project.html" target="_blank" class=" button secondary_button">Add New</a>
+                            <a href="./add_project.php" target="_blank" class=" button secondary_button">Add New</a>
                         </div>
                         <div class="form_group">
                             <div class="label">Catagory</div>
@@ -150,7 +162,7 @@ include "./includes/message_helper.inc.php";
                     <form action="./classes/controllers/transactionController.php" method="post" class="add_transaction_form withdrawal_form hidden grid">
                         <div class="form_group">
                             <div class="label">Date</div>
-                            <input type="Date" name="transaction_date" id="" placeholder="Select Date">
+                            <input type="Date" name="transaction_date" id="" placeholder="Select Date" required>
                         </div>
                         <div class="form_group">
                             <div class="label">Account Used</div>
@@ -173,6 +185,8 @@ include "./includes/message_helper.inc.php";
 
                                 ?>
                             </select>
+                            <a href="./add_account.php" target="_blank" class=" button secondary_button">Add New</a>
+
                         </div>
                         <div class="form_group amount_group">
                             <div class="label">Amount (Rs.)</div>
@@ -191,7 +205,7 @@ include "./includes/message_helper.inc.php";
                                 </div>
                                 <div class="form_group">
                                     <div class="label">Beneficiary Name</div>
-                                    <select name="withdrawal_beneficiary[]" id="">
+                                    <select name="withdrawal_beneficiary[]" id="" required>
                                         <option value="">--Select Beneficiary--</option>
                                         <?php 
                                         $controller =   new TransactionController();
@@ -210,8 +224,8 @@ include "./includes/message_helper.inc.php";
                                 </div>
                                 <div class="form_group">
                                     <div class="label">Project Name</div>
-                                    <select name="withdrawal_project[]" id="">
-                                        <option value="0">--Select Project--</option>
+                                    <select name="withdrawal_project[]" required>
+                                        <option value="">--Select Project--</option>
                                         <?php 
                                         $controller =   new ProjectController();
                                         $project_list =   $controller->getProjects();
@@ -246,7 +260,7 @@ include "./includes/message_helper.inc.php";
                                             <span>Others</span>
                                         </label>
                                     </div>
-                                    <a href="./add_transaction_catagory.html" target="_blank" class=" button secondary_button">Add New</a>
+                                    <a href="./add_transaction_catagory.php" target="_blank" class=" button secondary_button">Add New</a>
                                 </div>
                                 <div class="form_group">
                                     <div class="label">Purpose</div>

@@ -163,6 +163,17 @@ class Transaction{
             echo "ERROR : ".$e->getMessage();
         }
     }
+    public function getAllEmployees()
+    {
+        try{
+            $query  =   "SELECT * FROM employees LEFT JOIN beneficiaries ON beneficiary_id = employee_id LEFT JOIN designations ON employee_designation = designation_id";
+            $stmt  =   $this->pdo->prepare($query);
+            $stmt->execute();
+            return($stmt->fetchAll());
+        } catch (PDOException $e){
+            echo "UNABLE TO GET EMPLOYEES ".  $e->getMessage();
+        }
+    }
     public function getAllDesgnations()
     {
         try{

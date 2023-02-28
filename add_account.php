@@ -50,6 +50,8 @@ include "./includes/message_helper.inc.php";
                                 foreach($bank_list as $list)
                                 {
                                     $name   =   $list['bank_name'];
+                                    $name   =   str_replace('(', '', $name);
+                                    $name   =   str_replace(')', ' - ', $name);
                                     $id   =   $list['bank_id'];
                                     ?>
                                     <option value="<?php echo $id ?>"><?php echo $name ?></option>

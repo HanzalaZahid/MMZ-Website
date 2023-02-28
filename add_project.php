@@ -2,6 +2,7 @@
 
     require_once "./classes/Controllers/projectController.php";
     require_once "./classes/Controllers/clientController.php";
+    require_once "./classes/Controllers/transactionController.php";
     include "./includes/message_helper.inc.php";
 ?>
 <!DOCTYPE html>
@@ -116,10 +117,17 @@
                                     <div class="label">Team Member 1</div>
                                     <select name="member" id="">
                                         <option value="">--Select Team Member--</option>
-                                        <option value="1">Ameer Hamza (Electrician)</option>
-                                        <option value="2">Riaz (Carpenter)</option>
-                                        <option value="3">Akbar (Carpenter)</option>
-                                        <option value="3">Touseef (Carpenter)</option>
+                                        <?php
+                                            $controller    =   new TransactionController();
+                                            $employees_list        =    $controller->getAllEmployees();
+                                            foreach($employees_list as $list){
+                                                $name   =   $list['beneficiary_name']." - ".$list['designation_name'];
+                                                $id     =   $list['employee_id'];
+                                        ?>
+                                        <option value="<?php echo $id ?>"><?php echo $name ?></option>
+                                        <?php 
+                                            } 
+                                        ?>
                                     </select>
                                 </div>
                                 <div class="form_group generator_group">

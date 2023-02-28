@@ -20,7 +20,7 @@ include "./includes/message_helper.inc.php";
     <!-- SCRIPTS -->
     <script src="./assets/js/behaviour/nav_toggle.js" defer></script>
     <script src="./assets/js/behaviour/add_beneficairy.js" defer></script>
-    <script src="./assets/js/behaviour/validateForm.js" defer></script>
+    <script src="./assets/js/behaviour/validateForm.js?v=<?php echo time();?>" defer></script>
     <!-- Plugins -->
     <script src="./assets/plugins/jquery-validation/dist/jquery.validate.min.js"></script>
 
@@ -54,6 +54,8 @@ include "./includes/message_helper.inc.php";
                                 foreach($bank_list as $list)
                                 {
                                     $name   =   $list['bank_name'];
+                                    $name   =   str_replace('(', '', $name);
+                                    $name   =   str_replace(')', ' - ', $name);
                                     $id   =   $list['bank_id'];
                                     ?>
                                     <option value="<?php echo $id ?>"><?php echo $name ?></option>
@@ -87,6 +89,7 @@ include "./includes/message_helper.inc.php";
                                 foreach($designation_list as $list)
                                 {
                                     $name   =   $list['designation_name'];
+
                                     $id   =   $list['designation_id'];
                                     ?>
                                     <option value="<?php echo $id ?>"><?php echo ucwords(strtolower($name)) ?></option>

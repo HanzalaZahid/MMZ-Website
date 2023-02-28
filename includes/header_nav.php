@@ -48,10 +48,18 @@ include "./includes/session_helper.inc.php";
                     <li><a href="">
                         <span class="icon"><i class="bi bi-bank2"></i></span>
                         <span class="title">Transactions</span></a>
+                        <div class="subnav">
+                            <ul><a href="./add_transaction.php">Add Transaction</a></ul>
+                            <ul><a href="./add_transaction.php">View Transaction</a></ul>
+                        </div>
                     </li>                    
                     <li><a href="">
                         <span class="icon"><i class="bi bi-building"></i></span>
                         <span class="title">Projects</span></a>
+                        <div class="subnav">
+                            <ul><a href="./add_project.php">Add Project</a></ul>
+                            <ul><a href="./add_client.php">Add Client</a></ul>
+                        </div>
                     </li>                    
                 </ul>
             </div>
