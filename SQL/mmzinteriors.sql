@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 27, 2023 at 03:29 PM
+-- Generation Time: Mar 01, 2023 at 04:59 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -39,9 +39,8 @@ CREATE TABLE `accounts` (
 --
 
 INSERT INTO `accounts` (`account_id`, `account_title`, `account_bank`, `account_number`) VALUES
-(1, 'MIRZA MUHAMMAD ZAHID', 14, '53587000020755'),
-(2, 'Hanzala Zahid', 14, '535870000615003'),
-(3, 'Tayyab Zahid', 14, '09067900405503');
+(4, 'MIRZA MUHAMMAD ZAHID', 14, '53587000020755'),
+(5, 'Hanzala Zahid', 14, '53587000050851');
 
 -- --------------------------------------------------------
 
@@ -98,7 +97,8 @@ INSERT INTO `banks` (`bank_id`, `bank_name`) VALUES
 (37, '(SPCBL) The Sindh Provincial Cooperative Bank Limited'),
 (38, '(UBL) United Bank Limited'),
 (39, 'Upaisa'),
-(40, '(ZTBL) Zarai Taraqiati Bank Limited');
+(40, '(ZTBL) Zarai Taraqiati Bank Limited'),
+(41, 'NONE');
 
 -- --------------------------------------------------------
 
@@ -119,8 +119,11 @@ CREATE TABLE `beneficiaries` (
 --
 
 INSERT INTO `beneficiaries` (`beneficiary_id`, `beneficiary_name`, `beneficiary_bank`, `beneficiary_account_number`, `beneficiary_about`) VALUES
-(6, 'Hanzala Zahid', 14, '09067900615003', 'CO FOUNDER'),
-(7, 'AKBAR', 4, '54564156', '');
+(8, 'Hanzala Zahid', 14, '53587000050851', 'N/A'),
+(9, 'Tayyab Zahid', 14, '09067900405503', 'N/A'),
+(10, 'Ameer Hamza', 38, '0978234474602', 'N/A'),
+(11, 'AKBAR', 41, 'N/A', 'N/A'),
+(13, 'Imran', 41, 'N/A', 'N/A');
 
 -- --------------------------------------------------------
 
@@ -317,9 +320,8 @@ CREATE TABLE `clients` (
 --
 
 INSERT INTO `clients` (`client_id`, `client_name`, `client_type`, `client_address`, `client_contact`) VALUES
-(6, 'NDURE', 1, 'JAIL ROAD LAHORE', ''),
-(7, 'SERVIS', 1, 'JAIL ROAD LAHORE', ''),
-(8, 'Raja Rani', 0, 'City Road Sargodha', '');
+(9, 'NDURE', 1, 'JAIL ROAD LAHORE', ''),
+(10, 'SERVIS', 1, 'JAIL ROAD LAHORE', '');
 
 -- --------------------------------------------------------
 
@@ -337,9 +339,8 @@ CREATE TABLE `designations` (
 --
 
 INSERT INTO `designations` (`designation_id`, `designation_name`) VALUES
-(1, 'CARPENTER'),
-(2, 'ELECTRICIAN'),
-(3, 'CIVIL WORKER');
+(4, 'ELECTRICIAN'),
+(5, 'CARPENTER');
 
 -- --------------------------------------------------------
 
@@ -358,7 +359,9 @@ CREATE TABLE `employees` (
 --
 
 INSERT INTO `employees` (`employee_id`, `employee_designation`, `employee_contact`) VALUES
-(7, 1, '0305234132.');
+(10, 4, '03107446161'),
+(11, 5, '03027090317'),
+(13, 5, '03051392214');
 
 -- --------------------------------------------------------
 
@@ -380,9 +383,8 @@ CREATE TABLE `projects` (
 --
 
 INSERT INTO `projects` (`project_id`, `project_name`, `project_client`, `project_start_date`, `project_end_date`, `project_city`) VALUES
-(1, 'Raja Rani Faisalabad 0223', 8, '2023-02-20', '2023-02-28', 4),
-(3, 'NDURE Rahimyar Khan 0223', 6, '2023-02-20', '2023-03-09', 23),
-(4, 'NDURE Lahore 0223', 6, '2023-02-20', '2023-02-20', 3);
+(5, 'SERVIS Haripur 0223', 10, '2023-02-20', '2023-02-27', 111),
+(6, 'NDURE Abbottabad 0223', 9, '2023-02-24', '2023-02-08', 40);
 
 -- --------------------------------------------------------
 
@@ -428,11 +430,10 @@ CREATE TABLE `transactions` (
 --
 
 INSERT INTO `transactions` (`transaction_id`, `transaction_date`, `transaction_amount`, `transaction_account_used`, `transaction_type`, `transaction_cluster`) VALUES
-(2, '2023-04-05', '50000.00', 1, 'ONLINE', 0),
-(3, '2023-04-05', '50000.00', 1, 'ONLINE', 0),
-(4, '2023-04-05', '50000.00', 1, 'ONLINE', 0),
-(5, '2023-04-05', '50000.00', 1, 'ONLINE', 0),
-(7, '0231-12-05', '9.00', 2, 'ONLINE', 0);
+(37, '2023-02-28', '5000.00', 4, 'ONLINE', 1),
+(38, '2023-02-28', '5000.00', 4, 'ONLINE', 2),
+(39, '2023-02-28', '5000.00', 4, 'ONLINE', 3),
+(43, '2023-01-30', '14253.00', 4, 'WITHDRAWAL', 4);
 
 -- --------------------------------------------------------
 
@@ -455,23 +456,22 @@ CREATE TABLE `transaction_categories` (
 CREATE TABLE `transaction_details` (
   `transaction_detail_id` int(11) NOT NULL,
   `transaction_detail_beneficiary` int(11) NOT NULL,
-  `transaction_detail_amount` int(11) NOT NULL,
+  `transaction_detail_amount` decimal(20,2) NOT NULL,
   `transaction_detail_project` int(11) NOT NULL,
   `transaction_detail_catagory` varchar(22) NOT NULL,
   `transaction_detail_purpose` varchar(400) NOT NULL,
-  `transaction_id` int(11) NOT NULL
+  `transaction_cluster` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `transaction_details`
 --
 
-INSERT INTO `transaction_details` (`transaction_detail_id`, `transaction_detail_beneficiary`, `transaction_detail_amount`, `transaction_detail_project`, `transaction_detail_catagory`, `transaction_detail_purpose`, `transaction_id`) VALUES
-(4, 6, 50000, 3, '0', 'TEST TRANSACTIOn', 2),
-(5, 6, 50000, 3, '0', 'TEST TRANSACTIOn', 3),
-(6, 6, 50000, 3, '0', 'TEST TRANSACTIOn', 4),
-(7, 6, 50000, 3, '0', 'TEST TRANSACTIOn', 5),
-(9, 6, 9, 1, 'service', 'TEST TRANSACTIOn', 7);
+INSERT INTO `transaction_details` (`transaction_detail_id`, `transaction_detail_beneficiary`, `transaction_detail_amount`, `transaction_detail_project`, `transaction_detail_catagory`, `transaction_detail_purpose`, `transaction_cluster`) VALUES
+(47, 11, '5000.00', 5, 'service', 'Workshop Working', 1),
+(48, 11, '5000.00', 5, 'service', 'Workshop Working', 2),
+(49, 11, '5000.00', 5, 'service', 'Workshop Working', 3),
+(53, 10, '12.00', 6, 'purchase', 'TREST', 4);
 
 -- --------------------------------------------------------
 
@@ -564,7 +564,8 @@ ALTER TABLE `provinces`
 -- Indexes for table `transactions`
 --
 ALTER TABLE `transactions`
-  ADD PRIMARY KEY (`transaction_id`);
+  ADD PRIMARY KEY (`transaction_id`),
+  ADD KEY `transaction_cluster` (`transaction_cluster`);
 
 --
 -- Indexes for table `transaction_categories`
@@ -579,7 +580,7 @@ ALTER TABLE `transaction_details`
   ADD PRIMARY KEY (`transaction_detail_id`),
   ADD KEY `FK_TRANSACTION_DETAILS_BENEFICIARIES` (`transaction_detail_beneficiary`),
   ADD KEY `FK_TRANSACTION_DETAILS_PROJECTS` (`transaction_detail_project`),
-  ADD KEY `TRANSACTION_DETAILS_TRANSACTIONS` (`transaction_id`);
+  ADD KEY `TRANSACTION_DETAILS_TRANSACTIONS` (`transaction_cluster`);
 
 --
 -- Indexes for table `users`
@@ -595,19 +596,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `accounts`
 --
 ALTER TABLE `accounts`
-  MODIFY `account_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `account_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `banks`
 --
 ALTER TABLE `banks`
-  MODIFY `bank_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `bank_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT for table `beneficiaries`
 --
 ALTER TABLE `beneficiaries`
-  MODIFY `beneficiary_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `beneficiary_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `cities`
@@ -619,19 +620,19 @@ ALTER TABLE `cities`
 -- AUTO_INCREMENT for table `clients`
 --
 ALTER TABLE `clients`
-  MODIFY `client_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `client_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `designations`
 --
 ALTER TABLE `designations`
-  MODIFY `designation_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `designation_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `projects`
 --
 ALTER TABLE `projects`
-  MODIFY `project_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `project_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `provinces`
@@ -643,7 +644,7 @@ ALTER TABLE `provinces`
 -- AUTO_INCREMENT for table `transactions`
 --
 ALTER TABLE `transactions`
-  MODIFY `transaction_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `transaction_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT for table `transaction_categories`
@@ -655,7 +656,7 @@ ALTER TABLE `transaction_categories`
 -- AUTO_INCREMENT for table `transaction_details`
 --
 ALTER TABLE `transaction_details`
-  MODIFY `transaction_detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `transaction_detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -705,7 +706,7 @@ ALTER TABLE `projects`
 ALTER TABLE `transaction_details`
   ADD CONSTRAINT `FK_TRANSACTION_DETAILS_BENEFICIARIES` FOREIGN KEY (`transaction_detail_beneficiary`) REFERENCES `beneficiaries` (`beneficiary_id`),
   ADD CONSTRAINT `FK_TRANSACTION_DETAILS_PROJECTS` FOREIGN KEY (`transaction_detail_project`) REFERENCES `projects` (`project_id`),
-  ADD CONSTRAINT `TRANSACTION_DETAILS_TRANSACTIONS` FOREIGN KEY (`transaction_id`) REFERENCES `transactions` (`transaction_id`);
+  ADD CONSTRAINT `TRANSACTION_DETAILS_TRANSACTIONS` FOREIGN KEY (`transaction_cluster`) REFERENCES `transactions` (`transaction_cluster`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
